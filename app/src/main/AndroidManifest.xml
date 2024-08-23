@@ -17,6 +17,7 @@
         android:theme="@style/Theme.AlexStarter"
         tools:targetApi="31">
         <activity
+            android:windowSoftInputMode="adjustResize"
             android:name=".feature.main.MainActivity"
             android:exported="true"
             android:label="@string/app_name"

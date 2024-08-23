@@ -29,6 +29,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.alexstarter.MovieListItem
 import com.example.alexstarter.MovieViewModel
+import com.example.alexstarter.designsystem.AppScaffold
+import com.example.alexstarter.designsystem.TopBar
 import com.example.alexstarter.domain.model.Movie
 import com.example.alexstarter.util.Resource
 
@@ -48,96 +50,25 @@ fun HomeRoute(
 fun HomeScreen(
     state: Resource<List<Movie>>
 ) {
-
-    val context = LocalContext.current
-    //val getMovies = viewModel.getMoviesData
-
-    Surface(
-        modifier = Modifier.fillMaxSize()
+    AppScaffold(
+        topBar = { TopBar() }
     ) {
-        Scaffold(
-            modifier = Modifier.fillMaxSize(),
-        ) {
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center,
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(Color.LightGray)
-            ) {
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .background(Color.DarkGray)
-                        .padding(15.dp)
-                ) {
-                    Text(
-                        text = "User Live Data",
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 20.sp,
-                        color = Color.White
-                    )
-                }
-
-                LaunchedEffect(key1 = true) {
-
-                    if (state is Resource.Success) {
-                        Toast.makeText(context, "Fetching data success!", Toast.LENGTH_SHORT).show()
-                    } else if (state is Resource.Error) {
-                        Toast.makeText(context, "Error: ${state.message}", Toast.LENGTH_SHORT)
-                            .show()
-                    }
-                }
-
-                when(state){
-                    is Resource.Error -> {}
-                    is Resource.Loading -> {
-                        CircularProgressIndicator()
-                    }
-                    is Resource.Success -> {
-                        LazyColumn(
-                            modifier = Modifier.padding(10.dp)
-                        ) {
-                            items(state.data!!.size) { index ->
-                                MovieListItem(movie = state.data[index])
-                            }
-                        }
-                    }
-                }
+        when (state) {
+            is Resource.Error -> {}
+            is Resource.Loading -> {
+                CircularProgressIndicator()
             }
-        }
-    }
 
-    /*when (state) {
-        is Resource.Error -> Column(
-            modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Text(text = "Erreur : ${state.message}")
-        }
-
-        is Resource.Loading -> CircularProgressIndicator()
-
-        is Resource.Success ->
-        {
-            state.data?.let { movieList ->
+            is Resource.Success -> {
                 LazyColumn(
-                    modifier = Modifier.fillMaxSize(),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                    modifier = Modifier.padding(10.dp)
                 ) {
-                    items(movieList) { movie ->
-                        Text(text = movie.title)
+                    items(state.data!!.size) { index ->
+                        MovieListItem(movie = state.data[index])
                     }
                 }
-            } ?: run {
-                // Optionnel: Afficher un message si la liste est null
-                Text(text = "Aucun film disponible", modifier = Modifier.fillMaxSize())
             }
         }
 
-    }*/
-
+    }
 }
