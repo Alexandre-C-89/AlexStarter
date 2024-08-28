@@ -1,5 +1,6 @@
 package com.example.alexstarter.data.repository
 
+import android.util.Log
 import com.example.alexstarter.data.locale.AppDatabase
 import com.example.alexstarter.data.locale.movie.toMovie
 import com.example.alexstarter.data.locale.movie.toMovieEntity
@@ -60,6 +61,7 @@ class MovieListRepositoryImpl @Inject constructor(
 
             val movieEntities = movieListFromApi.results.let {
                 it.map { movieDto ->
+                    Log.d("MOVIELISTREPOSITORYIMPL", movieDto.poster_path)
                     movieDto.toMovieEntity()
                 }
             }

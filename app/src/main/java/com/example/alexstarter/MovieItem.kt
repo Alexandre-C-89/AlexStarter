@@ -55,7 +55,7 @@ fun MovieItem(
             Spacer(modifier = Modifier.padding(10.dp))
 
             AsyncImage(
-                model = "https://image.tmdb.org/t/p/w500",
+                model = movie.image,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier.size(200.dp),
                 contentDescription = "image movie"
@@ -64,7 +64,7 @@ fun MovieItem(
 
             Spacer(modifier = Modifier.padding(10.dp))
 
-            Text(
+            /*Text(
                 modifier = Modifier.fillMaxWidth(),
                 text = movie.adult.toString(),
                 color = White,
@@ -72,7 +72,7 @@ fun MovieItem(
                 fontWeight = FontWeight.Normal,
                 fontFamily = FontFamily.SansSerif,
                 textAlign = TextAlign.Center
-            )
+            )*/
         }
     }
 
