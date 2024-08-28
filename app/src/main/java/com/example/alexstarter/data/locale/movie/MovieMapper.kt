@@ -1,6 +1,6 @@
 package com.example.alexstarter.data.locale.movie
 
-import com.example.alexstarter.ApiInterface.Companion.IMAGE_BASE_URL
+import com.example.alexstarter.data.remote.di.RemoteModule.Companion.IMAGE_BASE_URL
 import com.example.alexstarter.data.remote.dto.MovieDto
 import com.example.alexstarter.domain.model.Movie
 

@@ -39,7 +39,6 @@ class MovieListRepositoryImpl @Inject constructor(
                     }
                 ))
 
-                //emit(Resource.Loading(false))
                 return@flow
             }
 
@@ -71,7 +70,6 @@ class MovieListRepositoryImpl @Inject constructor(
             emit(Resource.Success(
                 movieEntities.map { it.toMovie() }
             ))
-            //emit(Resource.Loading(false))
 
         }
     }
@@ -87,16 +85,9 @@ class MovieListRepositoryImpl @Inject constructor(
                 emit(
                     Resource.Success(movieEntity.toMovie())
                 )
-
-                //emit(Resource.Loading())
                 return@flow
             }
-
             emit(Resource.Error("Error no such movie"))
-
-            //emit(Resource.Loading(false))
-
-
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.example.alexstarter
+package com.example.alexstarter.designsystem
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -27,8 +27,7 @@ import com.example.alexstarter.ui.theme.White
 
 @Composable
 fun MovieItem(
-    movie: Movie,
-    //posterPath: String?
+    movie: Movie
 ) {
 
     Card(
@@ -63,16 +62,6 @@ fun MovieItem(
 
 
             Spacer(modifier = Modifier.padding(10.dp))
-
-            /*Text(
-                modifier = Modifier.fillMaxWidth(),
-                text = movie.adult.toString(),
-                color = White,
-                fontSize = 15.sp,
-                fontWeight = FontWeight.Normal,
-                fontFamily = FontFamily.SansSerif,
-                textAlign = TextAlign.Center
-            )*/
         }
     }
 

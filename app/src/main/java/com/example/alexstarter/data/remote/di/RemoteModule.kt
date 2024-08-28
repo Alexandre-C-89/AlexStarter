@@ -50,6 +50,7 @@ class RemoteModule {
     companion object {
         const val BASE_URL = "https://api.themoviedb.org/3/"
         const val API_KEY = "ec4c99f9d011ee3e90ae246123040c86"
+        const val IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500"
     }
 
 
