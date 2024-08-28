@@ -1,5 +1,6 @@
 package com.example.alexstarter.designsystem
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -14,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -29,40 +31,10 @@ import com.example.alexstarter.ui.theme.White
 fun MovieItem(
     movie: Movie
 ) {
-
-    Card(
-        modifier = Modifier
-            .width(305.dp)
-            .clip(RoundedCornerShape(10.dp)),
-        elevation = CardDefaults.cardElevation(10.dp),
-        colors = CardDefaults.cardColors(DarkBlue)
-    ) {
-        Column(
-            modifier = Modifier.padding(8.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Text(
-                modifier = Modifier.fillMaxWidth(),
-                text = "Title: ${movie.title}",
-                color = White,
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Bold,
-                fontFamily = FontFamily.SansSerif,
-                textAlign = TextAlign.Center
-            )
-
-            Spacer(modifier = Modifier.padding(10.dp))
-
-            AsyncImage(
-                model = movie.image,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier.size(200.dp),
-                contentDescription = "image movie"
-            )
-
-
-            Spacer(modifier = Modifier.padding(10.dp))
-        }
-    }
-
+    AsyncImage(
+        model = movie.image,
+        contentScale = ContentScale.Crop,
+        modifier = Modifier.background(shape = RoundedCornerShape(6.dp), color = Color.Transparent),
+        contentDescription = "image movie"
+    )
 }
