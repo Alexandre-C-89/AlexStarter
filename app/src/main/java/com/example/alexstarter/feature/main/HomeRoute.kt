@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -27,17 +28,24 @@ fun HomeRoute(
 ) {
     val uiState by viewModel.movies.collectAsStateWithLifecycle()
     HomeScreen(
-        state = uiState
+        state = uiState,
+        onMenuClick = {},
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun HomeScreen(
-    state: Resource<List<Movie>>
+    state: Resource<List<Movie>>,
+    onMenuClick: () -> Unit
 ) {
     AppScaffold(
-        topBar = { TopBar() }
+        topBar = {
+            TopBar(
+                onNavigationClick = onMenuClick,
+            )
+        }
     ) {
         Column(
             modifier = Modifier

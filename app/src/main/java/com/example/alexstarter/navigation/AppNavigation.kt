@@ -19,7 +19,8 @@ fun AppNavigation(
         startDestination = Screen.Home.rout
     ) {
        composable(Screen.Home.rout){
-           HomeRoute()
+           HomeRoute(
+           )
        }
     }
 
