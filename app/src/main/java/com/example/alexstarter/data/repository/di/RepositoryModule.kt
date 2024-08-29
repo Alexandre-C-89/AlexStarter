@@ -2,8 +2,8 @@ package com.example.alexstarter.data.repository.di
 
 import com.example.alexstarter.data.locale.AppDatabase
 import com.example.alexstarter.data.remote.MovieApi
-import com.example.alexstarter.data.repository.MovieListRepositoryImpl
-import com.example.alexstarter.domain.repository.MovieListRepository
+import com.example.alexstarter.data.repository.MovieRepositoryImpl
+import com.example.alexstarter.domain.repository.MovieRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,7 +18,7 @@ object RepositoryModule {
     fun providesMovieRepository(
         movieApi: MovieApi,
         appDatabase: AppDatabase
-    ): MovieListRepository {
-        return MovieListRepositoryImpl(movieApi, appDatabase)
+    ): MovieRepository {
+        return MovieRepositoryImpl(movieApi, appDatabase)
     }
 }

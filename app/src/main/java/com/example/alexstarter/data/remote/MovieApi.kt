@@ -8,8 +8,13 @@ import retrofit2.http.Query
 interface MovieApi {
 
     @GET("movie/popular")
-    suspend fun getMoviesList(
-        @Query("category") category: String,
+    suspend fun getMoviesPopular(
+        @Query("page") page: Int,
+        @Query("api_key") apiKey: String = RemoteModule.API_KEY
+    ): MovieListDto
+
+    @GET("movie/upcoming")
+    suspend fun getMoviesUpcoming(
         @Query("page") page: Int,
         @Query("api_key") apiKey: String = RemoteModule.API_KEY
     ): MovieListDto

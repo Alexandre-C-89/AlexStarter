@@ -13,5 +13,9 @@ interface MovieDao {
     suspend fun getMovieById(id: Int): MovieEntity?
 
     @Query("SELECT * FROM movie")
-    suspend fun getMovieListByCategory(): List<MovieEntity>
+    suspend fun getMoviesPopular(): List<MovieEntity>
+
+    @Query("SELECT * FROM movie")
+    suspend fun getMoviesUpcoming(): List<MovieEntity>
+
 }

@@ -4,10 +4,16 @@ import com.example.alexstarter.domain.model.Movie
 import com.example.alexstarter.util.Resource
 import kotlinx.coroutines.flow.Flow
 
-interface MovieListRepository {
-    suspend fun getMovieList(
+interface MovieRepository {
+    suspend fun getMoviesPopular(
         forceFetchFromRemote: Boolean,
-        category: String,
+        //category: String,
+        page: Int
+    ): Flow<Resource<List<Movie>>>
+
+    suspend fun getMoviesUpcoming(
+        forceFetchFromRemote: Boolean,
+        //category: String,
         page: Int
     ): Flow<Resource<List<Movie>>>
 
