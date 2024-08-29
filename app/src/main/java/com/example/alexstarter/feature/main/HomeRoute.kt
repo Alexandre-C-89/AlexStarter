@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
@@ -51,7 +52,6 @@ fun HomeScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(horizontal = 16.dp, vertical = 8.dp),
-            verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ){
             when (state) {
@@ -61,8 +61,8 @@ fun HomeScreen(
                 }
 
                 is Resource.Success -> {
-                    LazyColumn(
-                        verticalArrangement = Arrangement.spacedBy(16.dp)
+                    LazyRow(
+                        horizontalArrangement = Arrangement.spacedBy(16.dp)
                     ) {
                         items(state.data!!.size) { index ->
                             MovieItem(
