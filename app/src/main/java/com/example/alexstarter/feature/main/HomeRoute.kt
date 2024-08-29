@@ -60,7 +60,9 @@ fun HomeScreen(
         }
     ) {
         Column(
-            modifier = Modifier.fillMaxSize().padding(horizontal = 16.dp, vertical = 8.dp)
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(8.dp)
         ) {
             Text(
                 text = "Popular",
@@ -81,51 +83,55 @@ fun HomeScreen(
 
                 is Resource.Success -> {
 
-                    Column(
-                        modifier = Modifier.fillMaxSize()
-                    ){
-
-                        LazyRow(
-                            horizontalArrangement = Arrangement.spacedBy(8.dp)
-                        ) {
-                            items(moviesPopularstate.data!!.size) { index ->
-                                MovieItem(
-                                    movie = moviesPopularstate.data[index]
-                                )
-                            }
-                        }
-
-                        Spacer.Vertical.Default()
-
-                        Text(
-                            text = "Upcoming",
-                            fontFamily = openSansFontFamily,
-                            fontWeight = FontWeight.SemiBold,
-                            fontSize = 14.sp,
-                            textAlign = TextAlign.Start,
-                            color = DarkBlue
-                        )
-
-                        Spacer.Vertical.Small()
-
-                        when (moviesUpcomingState) {
-                            is Resource.Error -> { /* Gérer l'erreur */ }
-                            is Resource.Loading -> {
-                                CircularProgressIndicator()
-                            }
-                            is Resource.Success -> {
-                                LazyRow(
-                                    horizontalArrangement = Arrangement.spacedBy(8.dp)
-                                ) {
-                                    items(moviesUpcomingState.data!!.size) { index ->
-                                        MovieItem(movie = moviesUpcomingState.data[index])
-                                    }
-                                }
-                            }
+                    LazyRow(
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        items(moviesPopularstate.data!!.size) { index ->
+                            MovieItem(
+                                movie = moviesPopularstate.data[index]
+                            )
                         }
                     }
+
+                    Spacer.Vertical.Medium()
+
+                    Text(
+                        text = "Upcoming",
+                        fontFamily = openSansFontFamily,
+                        fontWeight = FontWeight.SemiBold,
+                        fontSize = 14.sp,
+                        textAlign = TextAlign.Start,
+                        color = DarkBlue
+                    )
+
+                    Spacer.Vertical.Small()
+
+                    when (moviesUpcomingState) {
+                        is Resource.Error -> { /* Gérer l'erreur */
+                        }
+
+                        is Resource.Loading -> {
+                            CircularProgressIndicator()
+                        }
+
+                        is Resource.Success -> {
+                            LazyRow(
+                                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                            ) {
+                                items(moviesUpcomingState.data!!.size) { index ->
+                                    MovieItem(movie = moviesUpcomingState.data[index])
+                                }
+                            }
+
+                        }
+                    }
+
                 }
+
             }
+
+            Spacer.Vertical.Medium()
+
         }
     }
 }
