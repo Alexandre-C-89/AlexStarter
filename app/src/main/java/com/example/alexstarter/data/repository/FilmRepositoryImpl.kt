@@ -20,7 +20,6 @@ class MovieRepositoryImpl @Inject constructor(
 
     override suspend fun getMoviesPopular(
         forceFetchFromRemote: Boolean,
-        //category: String,
         page: Int
     ): Flow<Resource<List<Movie>>> {
         return flow {
@@ -74,7 +73,6 @@ class MovieRepositoryImpl @Inject constructor(
 
     override suspend fun getMoviesUpcoming(
         forceFetchFromRemote: Boolean,
-        //category: String,
         page: Int
     ): Flow<Resource<List<Movie>>> {
         return flow {
@@ -127,27 +125,25 @@ class MovieRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getMovie(id: Int): Flow<Resource<Movie>> {
+    /*override suspend fun getMovie(id: Int): Flow<Resource<Movie>> {
         return flow {
 
             emit(Resource.Loading())
 
             val movieEntity = appDatabase.movieDao.getMovieById(id)
 
-            if (movieEntity != null) {
-                emit(
-                    Resource.Success(movieEntity.toMovie())
-                )
-                return@flow
-            }
-            //emit(Resource.Error("Error no such movie"))
+            emit(
+                Resource.Success(movieEntity.toMovie())
+            )
+            return@flow
         }
-    }
+    }*/
 
     override suspend fun getMovieDetails(movieId: String): Flow<Resource<Movie>> = flow {
         emit(Resource.Loading())
         try {
-            val movie = movieApi.getMovieDetails(movieId)
+            val movieDto = movieApi.getMovieDetails(movieId)
+            val movie = movieDto.toMovieEntity().toMovie()  // Mapping
             emit(Resource.Success(movie))
         } catch (e: Exception) {
             emit(Resource.Error(e.message ?: "An error occurred"))

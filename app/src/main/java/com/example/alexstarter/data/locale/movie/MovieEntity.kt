@@ -9,4 +9,7 @@ data class MovieEntity(
     val id: Int,
     val image: String,
     val title: String,
+    val overview: String,
+    val dateDeSortie: String,
+    val genres: String,
 )

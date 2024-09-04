@@ -16,24 +16,6 @@ class MovieDetailViewModel
     private val repository: MovieRepository
 ): ViewModel() {
 
-    /*private val _movieDetailsState = MutableStateFlow<MovieDetailState>(MovieDetailState.Loading)
-    val movieDetailsState: StateFlow<MovieDetailState> = _movieDetailsState
-
-    /*init {
-        fetchMovieDetails(movieId = )
-    }*/
-
-    fun fetchMovieDetails(movieId: String) {
-        viewModelScope.launch {
-            try {
-                val movie = repository.getMovieDetails(movieId)  // Faites l'appel API ici
-                _movieDetailsState.value = MovieDetailState.Loaded(movie)
-            } catch (e: Exception) {
-                _movieDetailsState.value = MovieDetailState.Error(e.message ?: "Unknown Error")
-            }
-        }
-    }*/
-
     private val _movieDetailsState = MutableStateFlow<MovieDetailState>(MovieDetailState.Loading)
     val movieDetailsState: StateFlow<MovieDetailState> = _movieDetailsState
 

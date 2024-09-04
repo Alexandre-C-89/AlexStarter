@@ -9,7 +9,10 @@ fun MovieDto.toMovieEntity(
     return MovieEntity(
         id = id,
         image = IMAGE_BASE_URL + poster_path,
-        title = title
+        title = title,
+        overview = overview,
+        dateDeSortie = release_date,
+        genres = genres?.joinToString(", ") { it.name } ?: "",
     )
 }
 
@@ -18,6 +21,9 @@ fun MovieEntity.toMovie(
     return Movie(
         id = id,
         image = IMAGE_BASE_URL + image,
-        title = title
+        title = title,
+        overview = overview,
+        dateDeSortie = dateDeSortie,
+        genres = genres.split(", ")
     )
 }
