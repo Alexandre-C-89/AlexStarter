@@ -83,7 +83,8 @@ class MovieRepositoryImpl @Inject constructor(
 
             val localMovieUpcoming = appDatabase.movieDao.getMoviesUpcoming()
 
-            val shouldLoadLocalMoviesUpcoming = localMovieUpcoming.isNotEmpty() && !forceFetchFromRemote
+            val shouldLoadLocalMoviesUpcoming =
+                localMovieUpcoming.isNotEmpty() && !forceFetchFromRemote
 
             if (shouldLoadLocalMoviesUpcoming) {
                 emit(Resource.Success(
@@ -140,6 +141,16 @@ class MovieRepositoryImpl @Inject constructor(
                 return@flow
             }
             //emit(Resource.Error("Error no such movie"))
+        }
+    }
+
+    override suspend fun getMovieDetails(movieId: String): Flow<Resource<Movie>> = flow {
+        emit(Resource.Loading())
+        try {
+            val movie = movieApi.getMovieDetails(movieId)
+            emit(Resource.Success(movie))
+        } catch (e: Exception) {
+            emit(Resource.Error(e.message ?: "An error occurred"))
         }
     }
 }

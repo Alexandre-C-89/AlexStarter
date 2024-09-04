@@ -1,6 +1,7 @@
 package com.example.alexstarter.designsystem
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -29,10 +30,11 @@ import com.example.alexstarter.ui.theme.White
 
 @Composable
 fun MovieItem(
+    onClick: () -> Unit,
     movie: Movie
 ) {
     Card(
-
+        modifier = Modifier.clickable { onClick() },
         shape = RoundedCornerShape(6.dp),
     ) {
         AsyncImage(
