@@ -4,6 +4,7 @@ import com.example.alexstarter.data.remote.di.RemoteModule
 import com.example.alexstarter.data.remote.dto.MovieDto
 import com.example.alexstarter.data.remote.dto.MovieListDto
 import com.example.alexstarter.domain.model.Movie
+import com.example.alexstarter.domain.model.MovieCredits
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -27,5 +28,11 @@ interface MovieApi {
         @Path("movieId") movieId: String,
         @Query("api_key") apiKey: String = RemoteModule.API_KEY
     ): MovieDto
+
+    @GET("movie/{movieId}/credits")
+    suspend fun getMovieCredits(
+        @Path("movieId") movieId: String,
+        @Query("api_key") apiKey: String = RemoteModule.API_KEY
+    ): MovieCredits
 
 }

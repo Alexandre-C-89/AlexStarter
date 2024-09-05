@@ -1,5 +1,6 @@
 package com.example.alexstarter.feature.detail
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.alexstarter.domain.repository.MovieRepository
@@ -7,6 +8,8 @@ import com.example.alexstarter.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,23 +24,23 @@ class MovieDetailViewModel
 
     fun fetchMovieDetails(movieId: String) {
         viewModelScope.launch {
-            repository.getMovieDetails(movieId).collect { resource ->
-                when (resource) {
-                    is Resource.Loading -> {
-                        _movieDetailsState.value = MovieDetailState.Loading
+            val movieDetailsFlow = repository.getMovieDetails(movieId)
+            val movieCreditsFlow = repository.getMovieCredits(movieId)
+            combine(movieDetailsFlow, movieCreditsFlow) { movieDetailsResource, movieCreditsResource ->
+                Log.d("FETCHMOVIEDETAILS", "MovieDetails: $movieDetailsResource, MovieCredits: $movieCreditsResource")
+                if (movieDetailsResource is Resource.Success && movieCreditsResource is Resource.Success) {
+                    val movie = movieDetailsResource.data?.copy(cast = movieCreditsResource.data ?: emptyList())
+                    _movieDetailsState.value = if (movie != null) {
+                        MovieDetailState.Loaded(movie)
+                    } else {
+                        MovieDetailState.Error("Movie not found")
                     }
-                    is Resource.Success -> {
-                        resource.data?.let { movie ->
-                            _movieDetailsState.value = MovieDetailState.Loaded(movie)
-                        } ?: run {
-                            _movieDetailsState.value = MovieDetailState.Error("Movie not found")
-                        }
-                    }
-                    is Resource.Error -> {
-                        _movieDetailsState.value = MovieDetailState.Error(resource.message ?: "Unknown error")
-                    }
+                } else if (movieDetailsResource is Resource.Error || movieCreditsResource is Resource.Error) {
+                    _movieDetailsState.value = MovieDetailState.Error("Error loading movie details or credits")
+                } else {
+                    _movieDetailsState.value = MovieDetailState.Loading
                 }
-            }
+            }.launchIn(viewModelScope)
         }
     }
 

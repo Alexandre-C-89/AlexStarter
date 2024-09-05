@@ -6,5 +6,6 @@ data class Movie(
     val title: String,
     val overview: String,
     val dateDeSortie: String,
-    val genres: List<String>
+    val genres: List<String>,
+    val cast: List<CastMember> = emptyList(),
 )

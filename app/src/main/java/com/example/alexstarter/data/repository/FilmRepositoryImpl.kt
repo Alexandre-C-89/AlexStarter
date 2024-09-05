@@ -1,10 +1,14 @@
 package com.example.alexstarter.data.repository
 
+import android.util.Log
 import com.example.alexstarter.data.locale.AppDatabase
+import com.example.alexstarter.data.locale.movie.toCastMembers
 import com.example.alexstarter.data.locale.movie.toMovie
 import com.example.alexstarter.data.locale.movie.toMovieEntity
 import com.example.alexstarter.data.remote.MovieApi
+import com.example.alexstarter.domain.model.CastMember
 import com.example.alexstarter.domain.model.Movie
+import com.example.alexstarter.domain.model.MovieCredits
 import com.example.alexstarter.domain.repository.MovieRepository
 import com.example.alexstarter.util.Resource
 import kotlinx.coroutines.flow.Flow
@@ -125,20 +129,6 @@ class MovieRepositoryImpl @Inject constructor(
         }
     }
 
-    /*override suspend fun getMovie(id: Int): Flow<Resource<Movie>> {
-        return flow {
-
-            emit(Resource.Loading())
-
-            val movieEntity = appDatabase.movieDao.getMovieById(id)
-
-            emit(
-                Resource.Success(movieEntity.toMovie())
-            )
-            return@flow
-        }
-    }*/
-
     override suspend fun getMovieDetails(movieId: String): Flow<Resource<Movie>> = flow {
         emit(Resource.Loading())
         try {
@@ -149,4 +139,20 @@ class MovieRepositoryImpl @Inject constructor(
             emit(Resource.Error(e.message ?: "An error occurred"))
         }
     }
+
+    override suspend fun getMovieCredits(movieId: String): Flow<Resource<List<CastMember>>> = flow {
+        try {
+            emit(Resource.Loading())
+            val response = movieApi.getMovieCredits(movieId)
+
+            // Mappage des URLs des images des acteurs
+            val castMembers = response.toCastMembers()
+            Log.d("GETMOVIECREDITS", "$response + $castMembers")
+
+            emit(Resource.Success(castMembers))
+        } catch (e: Exception) {
+            emit(Resource.Error(e.localizedMessage ?: "An error occurred"))
+        }
+    }
+
 }
