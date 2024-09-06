@@ -46,7 +46,7 @@ fun TopBar(
         TopAppBar(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(90.dp),
+                .height(70.dp),
             title = {
                 Box(
                     modifier = Modifier.fillMaxSize(),
