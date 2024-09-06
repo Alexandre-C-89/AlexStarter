@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material3.CircularProgressIndicator
@@ -23,6 +25,7 @@ import com.example.alexstarter.designsystem.AppScaffold
 import com.example.alexstarter.designsystem.MovieItem
 import com.example.alexstarter.designsystem.Spacer
 import com.example.alexstarter.designsystem.TopBar
+import com.example.alexstarter.designsystem.tab.TabRowApp
 import com.example.alexstarter.domain.model.Movie
 import com.example.alexstarter.ui.theme.DarkBlue
 import com.example.alexstarter.ui.theme.openSansFontFamily
@@ -63,82 +66,90 @@ fun HomeScreen(
         }
     ) {
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(8.dp)
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center
         ) {
-            Text(
-                text = "Popular",
-                fontFamily = openSansFontFamily,
-                fontWeight = FontWeight.SemiBold,
-                fontSize = 14.sp,
-                textAlign = TextAlign.Start,
-                color = DarkBlue
-            )
-
+            TabRowApp(modifier = Modifier.weight(1f))
             Spacer.Vertical.Small()
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(8.dp)
+            ) {
+                Text(
+                    text = "Popular",
+                    fontFamily = openSansFontFamily,
+                    fontWeight = FontWeight.SemiBold,
+                    fontSize = 14.sp,
+                    textAlign = TextAlign.Start,
+                    color = DarkBlue
+                )
 
-            when (moviesPopularState) {
-                is Resource.Error -> {}
-                is Resource.Loading -> {
-                    CircularProgressIndicator()
-                }
+                Spacer.Vertical.Small()
 
-                is Resource.Success -> {
-
-                    LazyRow(
-                        horizontalArrangement = Arrangement.spacedBy(8.dp)
-                    ) {
-                        items(moviesPopularState.data!!.size) { index ->
-                            MovieItem(
-                                onClick = { onMovieClick(moviesPopularState.data[index].id) },
-                                movie = moviesPopularState.data[index]
-                            )
-                        }
+                when (moviesPopularState) {
+                    is Resource.Error -> {}
+                    is Resource.Loading -> {
+                        CircularProgressIndicator()
                     }
 
-                    Spacer.Vertical.Medium()
+                    is Resource.Success -> {
 
-                    Text(
-                        text = "Upcoming",
-                        fontFamily = openSansFontFamily,
-                        fontWeight = FontWeight.SemiBold,
-                        fontSize = 14.sp,
-                        textAlign = TextAlign.Start,
-                        color = DarkBlue
-                    )
-
-                    Spacer.Vertical.Small()
-
-                    when (moviesUpcomingState) {
-                        is Resource.Error -> { /* Gérer l'erreur */
+                        LazyRow(
+                            horizontalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            items(moviesPopularState.data!!.size) { index ->
+                                MovieItem(
+                                    onClick = { onMovieClick(moviesPopularState.data[index].id) },
+                                    movie = moviesPopularState.data[index]
+                                )
+                            }
                         }
 
-                        is Resource.Loading -> {
-                            CircularProgressIndicator()
-                        }
+                        Spacer.Vertical.Medium()
 
-                        is Resource.Success -> {
-                            LazyRow(
-                                horizontalArrangement = Arrangement.spacedBy(8.dp)
-                            ) {
-                                items(moviesUpcomingState.data!!.size) { index ->
-                                    MovieItem(
-                                        onClick = { onMovieClick(moviesUpcomingState.data[index].id) },
-                                        movie = moviesUpcomingState.data[index]
-                                    )
-                                }
+                        Text(
+                            text = "Upcoming",
+                            fontFamily = openSansFontFamily,
+                            fontWeight = FontWeight.SemiBold,
+                            fontSize = 14.sp,
+                            textAlign = TextAlign.Start,
+                            color = DarkBlue
+                        )
+
+                        Spacer.Vertical.Small()
+
+                        when (moviesUpcomingState) {
+                            is Resource.Error -> { /* Gérer l'erreur */
                             }
 
+                            is Resource.Loading -> {
+                                CircularProgressIndicator()
+                            }
+
+                            is Resource.Success -> {
+                                LazyRow(
+                                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                                ) {
+                                    items(moviesUpcomingState.data!!.size) { index ->
+                                        MovieItem(
+                                            onClick = { onMovieClick(moviesUpcomingState.data[index].id) },
+                                            movie = moviesUpcomingState.data[index]
+                                        )
+                                    }
+                                }
+
+                            }
                         }
+
                     }
 
                 }
 
+                Spacer.Vertical.Medium()
+
             }
-
-            Spacer.Vertical.Medium()
-
         }
+
     }
 }
