@@ -36,6 +36,7 @@ import com.example.alexstarter.R
 import com.example.alexstarter.designsystem.AppScaffold
 import com.example.alexstarter.designsystem.Spacer
 import com.example.alexstarter.designsystem.TopBar
+import com.example.alexstarter.designsystem.image.ImageCardItem
 import com.example.alexstarter.ui.theme.DarkBlue
 import com.example.alexstarter.ui.theme.openSansFontFamily
 
@@ -135,14 +136,17 @@ fun MovieDetailScreen(
                             items(movie.cast) { castMember ->
                                 castMember.profilePath?.let { Log.d("LAZYROWDETAILSSCREEN", it) }
                                 if (castMember.profilePath?.isNotEmpty() == true) {
-                                    AsyncImage(
+                                    ImageCardItem(
+                                        image = castMember.profilePath
+                                    )
+                                    /*AsyncImage(
                                         model = castMember.profilePath,
                                         contentDescription = "Profile picture of ${castMember.name}",
                                         modifier = Modifier
                                             .height(50.dp)
                                             .width(50.dp), // Ajustement de la largeur
                                         contentScale = ContentScale.Crop
-                                    )
+                                    )*/
                                 } else {
                                     // Affiche une image de remplacement ou laisse l'espace vide
                                     Image(
