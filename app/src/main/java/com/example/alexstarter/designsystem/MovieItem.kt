@@ -40,7 +40,6 @@ fun MovieItem(
         AsyncImage(
             model = movie.image,
             contentScale = ContentScale.Crop,
-            //modifier = Modifier.background(shape = RoundedCornerShape(6.dp), color = Color.Transparent),
             contentDescription = "image movie"
         )
     }

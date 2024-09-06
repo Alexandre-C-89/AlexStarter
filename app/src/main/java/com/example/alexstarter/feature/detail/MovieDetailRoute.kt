@@ -19,6 +19,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -36,6 +37,7 @@ import com.example.alexstarter.R
 import com.example.alexstarter.designsystem.AppScaffold
 import com.example.alexstarter.designsystem.Spacer
 import com.example.alexstarter.designsystem.TopBar
+import com.example.alexstarter.designsystem.icon.BackIconButton
 import com.example.alexstarter.designsystem.image.ImageCardItem
 import com.example.alexstarter.ui.theme.DarkBlue
 import com.example.alexstarter.ui.theme.openSansFontFamily
@@ -43,11 +45,13 @@ import com.example.alexstarter.ui.theme.openSansFontFamily
 @Composable
 fun MovieDetailRoute(
     movieId: String,
-    viewModel: MovieDetailViewModel = hiltViewModel()
+    viewModel: MovieDetailViewModel = hiltViewModel(),
+    onBackClick: () -> Unit
 ) {
     val movieDetailsState by viewModel.movieDetailsState.collectAsStateWithLifecycle()
     MovieDetailScreen(
         movieDetailsState = movieDetailsState,
+        onBackClick = onBackClick
     )
 
     LaunchedEffect(movieId) {
@@ -59,11 +63,14 @@ fun MovieDetailRoute(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MovieDetailScreen(
-    movieDetailsState: MovieDetailState
+    movieDetailsState: MovieDetailState,
+    onBackClick: () -> Unit
 ) {
     AppScaffold(
         topBar = {
-            TopBar()
+            TopBar(
+                onNavigationClick = onBackClick
+            )
         }
     ) {
         Column(
@@ -114,14 +121,6 @@ fun MovieDetailScreen(
                         )
                         Spacer.Vertical.Small()
                         Text(
-                            text = "Type de film : ${movie.genres}",
-                            fontFamily = openSansFontFamily,
-                            fontSize = 12.sp,
-                            fontWeight = FontWeight.SemiBold,
-                            color = DarkBlue
-                        )
-                        Spacer.Vertical.Small()
-                        Text(
                             text = "Genres : ${movie.genres.joinToString(", ")}",
                             fontFamily = openSansFontFamily,
                             fontSize = 12.sp,
@@ -129,28 +128,15 @@ fun MovieDetailScreen(
                             color = DarkBlue
                         )
                         Spacer.Vertical.Small()
-                        LazyRow(
-                            modifier = Modifier.height(300.dp),
-                            horizontalArrangement = Arrangement.spacedBy(8.dp)
-                        ) {
+                        LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                             items(movie.cast) { castMember ->
-                                castMember.profilePath?.let { Log.d("LAZYROWDETAILSSCREEN", it) }
                                 if (castMember.profilePath?.isNotEmpty() == true) {
                                     ImageCardItem(
                                         image = castMember.profilePath
                                     )
-                                    /*AsyncImage(
-                                        model = castMember.profilePath,
-                                        contentDescription = "Profile picture of ${castMember.name}",
-                                        modifier = Modifier
-                                            .height(50.dp)
-                                            .width(50.dp), // Ajustement de la largeur
-                                        contentScale = ContentScale.Crop
-                                    )*/
                                 } else {
-                                    // Affiche une image de remplacement ou laisse l'espace vide
                                     Image(
-                                        painter = painterResource(id = R.drawable.ic_no_image), // Assurez-vous d'avoir une image de placeholder
+                                        painter = painterResource(id = R.drawable.ic_no_image),
                                         contentDescription = "Placeholder for ${castMember.name}",
                                         modifier = Modifier
                                             .height(50.dp)
@@ -168,6 +154,7 @@ fun MovieDetailScreen(
                 MovieDetailState.Loading -> {
                     CircularProgressIndicator()
                 }
+
             }
         }
     }

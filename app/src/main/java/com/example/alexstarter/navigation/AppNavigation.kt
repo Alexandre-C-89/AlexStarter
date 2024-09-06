@@ -30,7 +30,10 @@ fun AppNavigation(
         ) { backStackEntry ->
             val movieId = backStackEntry.arguments?.getString("movie_id")
             movieId?.let {
-                MovieDetailRoute(movieId = it)
+                MovieDetailRoute(
+                    movieId = it,
+                    onBackClick = { navController.popBackStack() }
+                )
             }
         }
     }

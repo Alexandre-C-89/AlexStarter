@@ -3,6 +3,7 @@ package com.example.alexstarter.feature.main
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.alexstarter.domain.model.Movie
+import com.example.alexstarter.domain.model.Series
 import com.example.alexstarter.domain.repository.MovieRepository
 import com.example.alexstarter.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -24,9 +25,13 @@ class HomeViewModel @Inject constructor(
     private val _moviesUpcoming = MutableStateFlow<Resource<List<Movie>>>(Resource.Loading())
     val moviesUpcoming: StateFlow<Resource<List<Movie>>> = _moviesUpcoming
 
+    private val _seriesPopularState = MutableStateFlow<Resource<List<Series>>>(Resource.Loading())
+    val seriesPopularState: StateFlow<Resource<List<Series>>> = _seriesPopularState
+
     init {
         fetchMoviesPopular()
         fetchMoviesUpcoming()
+        fetchSeriesPopular()
     }
 
     private fun fetchMoviesPopular() {
@@ -49,5 +54,15 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+
+    private fun fetchSeriesPopular() {
+        viewModelScope.launch {
+            repository.getSeriesPopular(forceFetchFromRemote = false, page = 1)
+                .flowOn(Dispatchers.IO)
+                .collect { result ->
+                    _seriesPopularState.value = result
+                }
+        }
+    }
 
 }
