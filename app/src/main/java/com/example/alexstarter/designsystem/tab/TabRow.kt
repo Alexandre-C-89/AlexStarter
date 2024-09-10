@@ -24,7 +24,8 @@ import com.example.alexstarter.util.TabItem
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun TabRowApp(
-    modifier: Modifier
+    modifier: Modifier,
+    onNavigateClick: (String) -> Unit
 ) {
     var selectedTabIndex by remember {
         mutableIntStateOf(0)
@@ -51,6 +52,7 @@ fun TabRowApp(
                 selected = index == selectedTabIndex,
                 onClick = {
                     selectedTabIndex = index
+                    onNavigateClick(tabItem.title)
                 },
                 text = { Text(text = tabItem.title, color = DarkBlue) }
             )
@@ -71,7 +73,7 @@ val tabItem = listOf(
     TabItem(
         title = "Home"
     ), TabItem(
-        title = "Browse"
+        title = "Search"
     ), TabItem(
         title = "Settings"
     )

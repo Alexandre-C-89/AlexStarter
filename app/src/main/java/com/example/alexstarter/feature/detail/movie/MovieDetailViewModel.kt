@@ -1,4 +1,4 @@
-package com.example.alexstarter.feature.detail
+package com.example.alexstarter.feature.detail.movie
 
 import android.util.Log
 import androidx.lifecycle.ViewModel

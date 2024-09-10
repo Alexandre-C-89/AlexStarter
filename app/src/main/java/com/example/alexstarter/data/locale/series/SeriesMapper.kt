@@ -8,9 +8,9 @@ fun SeriesDto.toSeriesEntity(
 ): SeriesEntity {
     return SeriesEntity(
         id = id,
-        //title = title,
-        overview = description,
+        name = name,
         image = IMAGE_BASE_URL + poster_path,
+        overview = description,
     )
 }
 
@@ -18,7 +18,7 @@ fun SeriesEntity.toSeries(
 ): Series {
     return Series(
         id = id,
-        //title = title,
+        title = name,
         description = overview ?: "",
         image = IMAGE_BASE_URL + image
     )

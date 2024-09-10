@@ -39,7 +39,8 @@ import com.example.alexstarter.util.Resource
 @Composable
 fun HomeRoute(
     navController: NavController,
-    viewModel: HomeViewModel = hiltViewModel()
+    viewModel: HomeViewModel = hiltViewModel(),
+    onNavigateClick: (String) -> Unit
 ) {
     val moviesPopularState by viewModel.moviesPopular.collectAsStateWithLifecycle()
     val moviesUpcomingState by viewModel.moviesUpcoming.collectAsStateWithLifecycle()
@@ -52,9 +53,10 @@ fun HomeRoute(
             navController.navigate("movie/$movieId")
         },
         onSeriesClick = { seriesId ->
-            navController.navigate("movie/$seriesId")
+            navController.navigate("tv/$seriesId")
         },
         onMenuClick = {},
+        onNavigateClick = onNavigateClick
     )
 }
 
@@ -67,7 +69,8 @@ fun HomeScreen(
     seriesPopularState: Resource<List<Series>>,
     onMovieClick: (Int) -> Unit,
     onSeriesClick: (Int) -> Unit,
-    onMenuClick: () -> Unit
+    onMenuClick: () -> Unit,
+    onNavigateClick: (String) -> Unit
 ) {
     AppScaffold(
         topBar = {
@@ -82,7 +85,10 @@ fun HomeScreen(
                 .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.Center
         ) {
-            TabRowApp(modifier = Modifier.weight(1f))
+            TabRowApp(
+                modifier = Modifier.weight(1f),
+                onNavigateClick = onNavigateClick
+            )
             Spacer.Vertical.Small()
             Column(
                 modifier = Modifier

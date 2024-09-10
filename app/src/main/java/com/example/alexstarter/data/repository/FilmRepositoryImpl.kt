@@ -209,4 +209,15 @@ class MovieRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun getSeriesDetails(seriesId: String): Flow<Resource<Series>> = flow {
+        emit(Resource.Loading())
+        try {
+            val seriesDto = seriesApi.getSeriesDetails(seriesId)
+            val series = seriesDto.toSeriesEntity().toSeries()  // Mapping
+            emit(Resource.Success(series))
+        } catch (e: Exception) {
+            emit(Resource.Error(e.message ?: "An error occurred"))
+        }
+    }
+
 }

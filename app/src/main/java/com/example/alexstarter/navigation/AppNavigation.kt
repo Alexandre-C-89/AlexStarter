@@ -6,7 +6,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.example.alexstarter.feature.detail.MovieDetailRoute
+import com.example.alexstarter.feature.detail.movie.MovieDetailRoute
+import com.example.alexstarter.feature.detail.series.SeriesDetailRoute
 import com.example.alexstarter.feature.main.HomeRoute
 import com.example.alexstarter.util.Screen
 
@@ -22,16 +23,33 @@ fun AppNavigation(
         startDestination = Screen.Home.route
     ) {
         composable(Screen.Home.route) {
-            HomeRoute(navController)
+            HomeRoute(
+                navController,
+                onNavigateClick = { route ->
+                    navController.navigate(route)
+                }
+            )
         }
         composable(
-            route = "movie/{movie_id}",
+            route = "${Screen.MovieDetails.route}/{movie_id}",
             arguments = listOf(navArgument("movie_id") { type = NavType.StringType })
         ) { backStackEntry ->
             val movieId = backStackEntry.arguments?.getString("movie_id")
             movieId?.let {
                 MovieDetailRoute(
                     movieId = it,
+                    onBackClick = { navController.popBackStack() }
+                )
+            }
+        }
+        composable(
+            route = "${Screen.SeriesDetails.route}/{series_id}",
+            arguments = listOf(navArgument("series_id") { type = NavType.StringType })
+        ) { backStackEntry ->
+            val seriesId = backStackEntry.arguments?.getString("series_id")
+            seriesId?.let {
+                SeriesDetailRoute(
+                    seriesId = it,
                     onBackClick = { navController.popBackStack() }
                 )
             }

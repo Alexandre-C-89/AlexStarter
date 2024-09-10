@@ -1,8 +1,8 @@
-package com.example.alexstarter.feature.detail
+package com.example.alexstarter.feature.detail.movie
 
 import com.example.alexstarter.domain.model.Movie
 
-sealed class MovieDetailState(){
+sealed class MovieDetailState{
 
     data class Error(val message:  String) : MovieDetailState()
 

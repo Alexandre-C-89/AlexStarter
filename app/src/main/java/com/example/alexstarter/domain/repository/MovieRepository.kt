@@ -27,4 +27,6 @@ interface MovieRepository {
 
     suspend fun getMovieCredits(movieId: String): Flow<Resource<List<CastMember>>>
 
+    suspend fun getSeriesDetails(seriesId: String): Flow<Resource<Series>>
+
 }
