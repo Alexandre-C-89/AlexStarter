@@ -24,6 +24,7 @@ import coil.compose.AsyncImage
 import com.example.alexstarter.designsystem.AppScaffold
 import com.example.alexstarter.designsystem.Spacer
 import com.example.alexstarter.designsystem.appbar.TopBar
+import com.example.alexstarter.designsystem.message.ErrorMessage
 import com.example.alexstarter.ui.theme.DarkBlue
 import com.example.alexstarter.ui.theme.openSansFontFamily
 
@@ -65,7 +66,7 @@ fun SeriesDetailScreen(
         ) {
             when (seriesDetailsState) {
                 is SeriesDetailsState.Error -> {
-                    Text(text = seriesDetailsState.message)
+                    ErrorMessage(text = "Oh no something went wrong !")
                 }
 
                 is SeriesDetailsState.Loaded -> {

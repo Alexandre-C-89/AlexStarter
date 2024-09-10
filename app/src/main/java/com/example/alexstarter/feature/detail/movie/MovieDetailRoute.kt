@@ -31,6 +31,7 @@ import com.example.alexstarter.designsystem.AppScaffold
 import com.example.alexstarter.designsystem.Spacer
 import com.example.alexstarter.designsystem.appbar.TopBar
 import com.example.alexstarter.designsystem.image.ImageCardItem
+import com.example.alexstarter.designsystem.message.ErrorMessage
 import com.example.alexstarter.ui.theme.DarkBlue
 import com.example.alexstarter.ui.theme.openSansFontFamily
 
@@ -71,7 +72,7 @@ fun MovieDetailScreen(
         ) {
             when (movieDetailsState) {
                 is MovieDetailState.Error -> {
-                    Text(text = movieDetailsState.message)
+                    ErrorMessage(text = "Oh no something went wrong !")
                 }
 
                 is MovieDetailState.Loaded -> {

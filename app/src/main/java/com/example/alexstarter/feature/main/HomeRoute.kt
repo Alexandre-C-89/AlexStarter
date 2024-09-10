@@ -26,6 +26,7 @@ import com.example.alexstarter.designsystem.MovieItem
 import com.example.alexstarter.designsystem.SeriesItem
 import com.example.alexstarter.designsystem.Spacer
 import com.example.alexstarter.designsystem.appbar.TopBar
+import com.example.alexstarter.designsystem.message.ErrorMessage
 import com.example.alexstarter.designsystem.tab.TabRowApp
 import com.example.alexstarter.domain.model.Movie
 import com.example.alexstarter.domain.model.Series
@@ -105,7 +106,9 @@ fun HomeScreen(
                 Spacer.Vertical.Small()
 
                 when (moviesPopularState) {
-                    is Resource.Error -> {}
+                    is Resource.Error -> {
+                        ErrorMessage(text = "Oh no something went wrong !")
+                    }
                     is Resource.Loading -> {
                         CircularProgressIndicator()
                     }
@@ -137,7 +140,8 @@ fun HomeScreen(
                         Spacer.Vertical.Small()
 
                         when (moviesUpcomingState) {
-                            is Resource.Error -> { /* Gérer l'erreur */
+                            is Resource.Error -> {
+                                ErrorMessage(text = "Oh no something went wrong !")
                             }
 
                             is Resource.Loading -> {
@@ -173,7 +177,8 @@ fun HomeScreen(
                         Spacer.Vertical.Default()
 
                         when (seriesPopularState) {
-                            is Resource.Error -> { /* Gérer l'erreur */
+                            is Resource.Error -> {
+                                ErrorMessage(text = "Oh no something went wrong !")
                             }
 
                             is Resource.Loading -> {
