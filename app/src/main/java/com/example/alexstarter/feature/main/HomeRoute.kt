@@ -4,8 +4,6 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.rememberScrollState
@@ -27,7 +25,7 @@ import com.example.alexstarter.designsystem.AppScaffold
 import com.example.alexstarter.designsystem.MovieItem
 import com.example.alexstarter.designsystem.SeriesItem
 import com.example.alexstarter.designsystem.Spacer
-import com.example.alexstarter.designsystem.TopBar
+import com.example.alexstarter.designsystem.appbar.TopBar
 import com.example.alexstarter.designsystem.tab.TabRowApp
 import com.example.alexstarter.domain.model.Movie
 import com.example.alexstarter.domain.model.Series
@@ -40,7 +38,7 @@ import com.example.alexstarter.util.Resource
 fun HomeRoute(
     navController: NavController,
     viewModel: HomeViewModel = hiltViewModel(),
-    onNavigateClick: (String) -> Unit
+    //onNavigateClick: (String) -> Unit
 ) {
     val moviesPopularState by viewModel.moviesPopular.collectAsStateWithLifecycle()
     val moviesUpcomingState by viewModel.moviesUpcoming.collectAsStateWithLifecycle()
@@ -56,7 +54,7 @@ fun HomeRoute(
             navController.navigate("tv/$seriesId")
         },
         onMenuClick = {},
-        onNavigateClick = onNavigateClick
+        //onNavigateClick = onNavigateClick
     )
 }
 
@@ -70,7 +68,7 @@ fun HomeScreen(
     onMovieClick: (Int) -> Unit,
     onSeriesClick: (Int) -> Unit,
     onMenuClick: () -> Unit,
-    onNavigateClick: (String) -> Unit
+    //onNavigateClick: (String) -> Unit
 ) {
     AppScaffold(
         topBar = {
@@ -85,10 +83,10 @@ fun HomeScreen(
                 .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.Center
         ) {
-            TabRowApp(
+            /*TabRowApp(
                 modifier = Modifier.weight(1f),
                 onNavigateClick = onNavigateClick
-            )
+            )*/
             Spacer.Vertical.Small()
             Column(
                 modifier = Modifier

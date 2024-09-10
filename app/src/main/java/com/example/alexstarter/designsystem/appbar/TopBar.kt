@@ -1,4 +1,4 @@
-package com.example.alexstarter.designsystem
+package com.example.alexstarter.designsystem.appbar
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxHeight

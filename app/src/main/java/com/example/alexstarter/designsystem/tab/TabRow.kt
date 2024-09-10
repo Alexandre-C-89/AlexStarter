@@ -19,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.alexstarter.ui.theme.DarkBlue
+import com.example.alexstarter.util.Screen
 import com.example.alexstarter.util.TabItem
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -71,9 +72,9 @@ fun TabRowApp(
 
 val tabItem = listOf(
     TabItem(
-        title = "Home"
+        title = Screen.Home.route
     ), TabItem(
-        title = "Search"
+        title = Screen.Search.route
     ), TabItem(
         title = "Settings"
     )

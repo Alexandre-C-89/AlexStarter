@@ -9,6 +9,7 @@ import androidx.navigation.navArgument
 import com.example.alexstarter.feature.detail.movie.MovieDetailRoute
 import com.example.alexstarter.feature.detail.series.SeriesDetailRoute
 import com.example.alexstarter.feature.main.HomeRoute
+import com.example.alexstarter.feature.search.SearchRoute
 import com.example.alexstarter.util.Screen
 
 @Composable
@@ -24,6 +25,14 @@ fun AppNavigation(
     ) {
         composable(Screen.Home.route) {
             HomeRoute(
+                navController
+                /*onNavigateClick = { route ->
+                    navController.navigate(route)
+                }*/
+            )
+        }
+        composable(Screen.Search.route) {
+            SearchRoute(
                 navController,
                 onNavigateClick = { route ->
                     navController.navigate(route)

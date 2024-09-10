@@ -1,7 +1,8 @@
 package com.example.alexstarter.util
 
 sealed class Screen(val route: String) {
-    object Home : Screen("main")
-    object MovieDetails : Screen("movie")
-    object SeriesDetails : Screen("tv")
+    object Home : Screen("Home")
+    object MovieDetails : Screen("Movie")
+    object SeriesDetails : Screen("Tv")
+    object Search : Screen("Search")
 }
