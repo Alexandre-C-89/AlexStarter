@@ -13,7 +13,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -32,6 +31,8 @@ import com.example.alexstarter.designsystem.Spacer
 import com.example.alexstarter.designsystem.appbar.TopBar
 import com.example.alexstarter.designsystem.image.ImageCardItem
 import com.example.alexstarter.designsystem.message.ErrorMessage
+import com.example.alexstarter.designsystem.text.Text
+import com.example.alexstarter.designsystem.text.Title
 import com.example.alexstarter.ui.theme.DarkBlue
 import com.example.alexstarter.ui.theme.openSansFontFamily
 
@@ -87,38 +88,17 @@ fun MovieDetailScreen(
                     )
                     Column(modifier = Modifier.padding(8.dp)) {
 
-                        Text(
-                            text = movie.title,
-                            fontSize = 14.sp,
-                            fontFamily = openSansFontFamily,
-                            fontWeight = FontWeight.Bold,
-                            color = DarkBlue
-                        )
+                        Title.Default(text = movie.title)
                         Spacer.Vertical.Default()
-                        Text(
-                            text = movie.overview,
-                            fontFamily = openSansFontFamily,
-                            fontSize = 12.sp,
-                            fontWeight = FontWeight.Light,
-                            color = DarkBlue
-                        )
-
+                        Text.Default(text = movie.overview)
                         Spacer.Vertical.Small()
-                        Text(
-                            text = "Date de sortie : ${movie.dateDeSortie}",
-                            fontFamily = openSansFontFamily,
-                            fontSize = 12.sp,
-                            fontWeight = FontWeight.SemiBold,
-                            color = DarkBlue
-                        )
+                        Text.Default(text = "Date de sortie : ${movie.dateDeSortie}")
                         Spacer.Vertical.Small()
-                        Text(
-                            text = "Genres : ${movie.genres.joinToString(", ")}",
-                            fontFamily = openSansFontFamily,
-                            fontSize = 12.sp,
-                            fontWeight = FontWeight.SemiBold,
-                            color = DarkBlue
-                        )
+                        Text.Default(text = "Genres : ${movie.genres.joinToString(", ")}")
+                        Spacer.Vertical.Small()
+                        Text.Default(text = "Status : ${movie.status}")
+                        Spacer.Vertical.Small()
+                        Text.Default(text = "Moyenne des votes : ${movie.moyenneDesVotes}")
                         Spacer.Vertical.Small()
                         LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                             items(movie.cast) { castMember ->

@@ -13,8 +13,11 @@ fun MovieDto.toMovieEntity(
         image = IMAGE_BASE_URL + poster_path,
         title = title,
         overview = overview,
+        popularity = popularity,
         dateDeSortie = release_date,
         genres = genres?.joinToString(", ") { it.name } ?: "",
+        status = status ?: "Unknown",
+        moyenneDesVotes = vote_average,
     )
 }
 
@@ -26,13 +29,15 @@ fun MovieEntity.toMovie(
         title = title,
         overview = overview,
         dateDeSortie = dateDeSortie,
-        genres = genres.split(", ")
+        genres = genres.split(", "),
+        status = status ?: "Unknown",
+        moyenneDesVotes = moyenneDesVotes
     )
 }
 
 fun MovieCredits.toCastMembers(): List<CastMember> {
     return cast
-        .filter { it.profilePath != null } // Filtrer les acteurs sans image
+        .filter { it.profilePath != null }
         .map { castMember ->
             CastMember(
                 id = castMember.id,

@@ -7,5 +7,7 @@ data class Movie(
     val overview: String,
     val dateDeSortie: String,
     val genres: List<String>,
+    val status: String,
+    val moyenneDesVotes: Double,
     val cast: List<CastMember> = emptyList(),
 )
