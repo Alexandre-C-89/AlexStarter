@@ -1,4 +1,4 @@
-package com.example.alexstarter.domain.model
+package com.example.alexstarter.domain.movie.model
 
 import com.google.gson.annotations.SerializedName
 

@@ -1,10 +1,10 @@
 package com.example.alexstarter.data.locale.movie
 
 import com.example.alexstarter.data.remote.di.RemoteModule.Companion.IMAGE_BASE_URL
-import com.example.alexstarter.data.remote.dto.MovieDto
-import com.example.alexstarter.domain.model.CastMember
-import com.example.alexstarter.domain.model.Movie
-import com.example.alexstarter.domain.model.MovieCredits
+import com.example.alexstarter.data.remote.movie.dto.MovieDto
+import com.example.alexstarter.domain.movie.model.CastMember
+import com.example.alexstarter.domain.movie.model.Movie
+import com.example.alexstarter.domain.movie.model.MovieCredits
 
 fun MovieDto.toMovieEntity(
 ): MovieEntity {

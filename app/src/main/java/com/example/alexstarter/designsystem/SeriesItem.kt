@@ -8,7 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.example.alexstarter.domain.model.Series
+import com.example.alexstarter.domain.series.model.Series
 
 @Composable
 fun SeriesItem(

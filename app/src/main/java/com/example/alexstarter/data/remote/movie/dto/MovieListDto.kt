@@ -1,4 +1,4 @@
-package com.example.alexstarter.data.remote.dto
+package com.example.alexstarter.data.remote.movie.dto
 
 import com.google.gson.annotations.SerializedName
 

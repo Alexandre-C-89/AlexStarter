@@ -1,4 +1,4 @@
-package com.example.alexstarter.data.remote.dto
+package com.example.alexstarter.data.remote.movie.dto
 
 data class MovieDto(
     val id: Int,

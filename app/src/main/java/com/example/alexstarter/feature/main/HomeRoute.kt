@@ -27,9 +27,8 @@ import com.example.alexstarter.designsystem.SeriesItem
 import com.example.alexstarter.designsystem.Spacer
 import com.example.alexstarter.designsystem.appbar.TopBar
 import com.example.alexstarter.designsystem.message.ErrorMessage
-import com.example.alexstarter.designsystem.tab.TabRowApp
-import com.example.alexstarter.domain.model.Movie
-import com.example.alexstarter.domain.model.Series
+import com.example.alexstarter.domain.movie.model.Movie
+import com.example.alexstarter.domain.series.model.Series
 import com.example.alexstarter.ui.theme.DarkBlue
 import com.example.alexstarter.ui.theme.openSansFontFamily
 import com.example.alexstarter.util.Resource

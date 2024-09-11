@@ -1,7 +1,6 @@
 package com.example.alexstarter.data.remote.series
 
 import com.example.alexstarter.data.remote.di.RemoteModule
-import com.example.alexstarter.data.remote.dto.MovieDto
 import com.example.alexstarter.data.remote.series.dto.SeriesDto
 import com.example.alexstarter.data.remote.series.dto.SeriesListDto
 import retrofit2.http.GET

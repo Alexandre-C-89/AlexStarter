@@ -1,6 +1,6 @@
 package com.example.alexstarter.feature.detail.series
 
-import com.example.alexstarter.domain.model.Series
+import com.example.alexstarter.domain.series.model.Series
 
 sealed class SeriesDetailsState {
 

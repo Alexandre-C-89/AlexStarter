@@ -3,7 +3,7 @@ package com.example.alexstarter.feature.detail.movie
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.alexstarter.domain.repository.MovieRepository
+import com.example.alexstarter.domain.movie.repository.MovieRepository
 import com.example.alexstarter.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,7 +16,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MovieDetailViewModel
 @Inject constructor(
-    private val repository: MovieRepository
+    private val movieRepository: MovieRepository
 ): ViewModel() {
 
     private val _movieDetailsState = MutableStateFlow<MovieDetailState>(MovieDetailState.Loading)
@@ -24,8 +24,8 @@ class MovieDetailViewModel
 
     fun fetchMovieDetails(movieId: String) {
         viewModelScope.launch {
-            val movieDetailsFlow = repository.getMovieDetails(movieId)
-            val movieCreditsFlow = repository.getMovieCredits(movieId)
+            val movieDetailsFlow = movieRepository.getMovieDetails(movieId)
+            val movieCreditsFlow = movieRepository.getMovieCredits(movieId)
             combine(movieDetailsFlow, movieCreditsFlow) { movieDetailsResource, movieCreditsResource ->
                 Log.d("FETCHMOVIEDETAILS", "MovieDetails: $movieDetailsResource, MovieCredits: $movieCreditsResource")
                 if (movieDetailsResource is Resource.Success && movieCreditsResource is Resource.Success) {

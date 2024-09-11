@@ -2,9 +2,10 @@ package com.example.alexstarter.feature.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.alexstarter.domain.model.Movie
-import com.example.alexstarter.domain.model.Series
-import com.example.alexstarter.domain.repository.MovieRepository
+import com.example.alexstarter.domain.movie.model.Movie
+import com.example.alexstarter.domain.series.model.Series
+import com.example.alexstarter.domain.movie.repository.MovieRepository
+import com.example.alexstarter.domain.series.repository.SeriesRepository
 import com.example.alexstarter.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -16,7 +17,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val repository: MovieRepository
+    private val movieRepository: MovieRepository,
+    private val seriesRepository: SeriesRepository
 ): ViewModel() {
 
     private val _moviesPopular = MutableStateFlow<Resource<List<Movie>>>(Resource.Loading())
@@ -36,7 +38,7 @@ class HomeViewModel @Inject constructor(
 
     private fun fetchMoviesPopular() {
         viewModelScope.launch {
-            repository.getMoviesPopular(forceFetchFromRemote = false, page = 1)
+            movieRepository.getMoviesPopular(forceFetchFromRemote = false, page = 1)
                 .flowOn(Dispatchers.IO)
                 .collect { result ->
                     _moviesPopular.value = result
@@ -46,7 +48,7 @@ class HomeViewModel @Inject constructor(
 
     private fun fetchMoviesUpcoming() {
         viewModelScope.launch {
-            repository.getMoviesUpcoming(forceFetchFromRemote = false, page = 1)
+            movieRepository.getMoviesUpcoming(forceFetchFromRemote = false, page = 1)
                 .flowOn(Dispatchers.IO)
                 .collect { result ->
                     _moviesUpcoming.value = result
@@ -57,7 +59,7 @@ class HomeViewModel @Inject constructor(
 
     private fun fetchSeriesPopular() {
         viewModelScope.launch {
-            repository.getSeriesPopular(forceFetchFromRemote = false, page = 1)
+            seriesRepository.getSeriesPopular(forceFetchFromRemote = false, page = 1)
                 .flowOn(Dispatchers.IO)
                 .collect { result ->
                     _seriesPopularState.value = result

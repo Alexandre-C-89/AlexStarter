@@ -2,20 +2,18 @@ package com.example.alexstarter.feature.detail.series
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.alexstarter.domain.model.Series
-import com.example.alexstarter.domain.repository.MovieRepository
+import com.example.alexstarter.domain.movie.repository.MovieRepository
+import com.example.alexstarter.domain.series.repository.SeriesRepository
 import com.example.alexstarter.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class SeriesDetailsViewModel @Inject constructor(
-    private val repository: MovieRepository
+    private val repository: SeriesRepository
 ) : ViewModel() {
 
     private val _seriesDetailsState =

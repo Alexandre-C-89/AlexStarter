@@ -1,4 +1,4 @@
-package com.example.alexstarter.domain.model
+package com.example.alexstarter.domain.movie.model
 
 data class Movie(
     val id: Int,

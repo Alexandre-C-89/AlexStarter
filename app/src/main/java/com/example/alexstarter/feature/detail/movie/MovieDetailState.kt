@@ -1,6 +1,6 @@
 package com.example.alexstarter.feature.detail.movie
 
-import com.example.alexstarter.domain.model.Movie
+import com.example.alexstarter.domain.movie.model.Movie
 
 sealed class MovieDetailState{
 
