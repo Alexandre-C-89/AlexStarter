@@ -30,6 +30,7 @@ import com.example.alexstarter.designsystem.AppScaffold
 import com.example.alexstarter.designsystem.Spacer
 import com.example.alexstarter.designsystem.appbar.TopBar
 import com.example.alexstarter.designsystem.image.ImageCardItem
+import com.example.alexstarter.designsystem.indicator.CircularIndicator
 import com.example.alexstarter.designsystem.message.ErrorMessage
 import com.example.alexstarter.designsystem.text.Text
 import com.example.alexstarter.designsystem.text.Title
@@ -44,6 +45,7 @@ fun MovieDetailRoute(
 ) {
     val movieDetailsState by viewModel.movieDetailsState.collectAsStateWithLifecycle()
     MovieDetailScreen(
+        viewModel = viewModel,
         movieDetailsState = movieDetailsState,
         onBackClick = onBackClick
     )
@@ -56,6 +58,7 @@ fun MovieDetailRoute(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MovieDetailScreen(
+    viewModel: MovieDetailViewModel,
     movieDetailsState: MovieDetailState,
     onBackClick: () -> Unit
 ) {
@@ -72,12 +75,16 @@ fun MovieDetailScreen(
                 .verticalScroll(rememberScrollState())
         ) {
             when (movieDetailsState) {
+
+
                 is MovieDetailState.Error -> {
                     ErrorMessage(text = "Oh no something went wrong !")
                 }
 
                 is MovieDetailState.Loaded -> {
 
+                    val movieRating = movieDetailsState.movie.moyenneDesVotes
+                    val progress = viewModel.convertRatingToProgress(movieRating)
                     val movie = movieDetailsState.movie
 
                     AsyncImage(
@@ -98,7 +105,7 @@ fun MovieDetailScreen(
                         Spacer.Vertical.Small()
                         Text.Default(text = "Status : ${movie.status}")
                         Spacer.Vertical.Small()
-                        Text.Default(text = "Moyenne des votes : ${movie.moyenneDesVotes}")
+                        CircularIndicator(percentage = progress)
                         Spacer.Vertical.Small()
                         LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                             items(movie.cast) { castMember ->
