@@ -9,6 +9,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import com.example.alexstarter.ui.theme.DarkBlue
+import com.example.alexstarter.ui.theme.Orange
+import com.example.alexstarter.ui.theme.White
 import com.example.alexstarter.ui.theme.openSansFontFamily
 
 object Text {
@@ -43,6 +45,17 @@ object Text {
             fontFamily = openSansFontFamily,
             fontSize = 12.sp,
             fontWeight = FontWeight.SemiBold,
+            color = DarkBlue
+        )
+    )
+
+    @Composable
+    fun Small(text: String) = Text(
+        text = text,
+        style = TextStyle(
+            fontFamily = openSansFontFamily,
+            fontSize = 10.sp,
+            fontWeight = FontWeight.Normal,
             color = DarkBlue
         )
     )

@@ -33,6 +33,7 @@ import com.example.alexstarter.designsystem.image.ImageCardItem
 import com.example.alexstarter.designsystem.indicator.CircularIndicator
 import com.example.alexstarter.designsystem.message.ErrorMessage
 import com.example.alexstarter.designsystem.text.Text
+import com.example.alexstarter.designsystem.text.TextWithThumbnail
 import com.example.alexstarter.designsystem.text.Title
 import com.example.alexstarter.designsystem.text.TitleWithRow
 import com.example.alexstarter.ui.theme.DarkBlue
@@ -102,7 +103,12 @@ fun MovieDetailScreen(
                         Spacer.Vertical.Small()
                         Text.Default(text = "Date de sortie : ${movie.dateDeSortie}")
                         Spacer.Vertical.Small()
-                        Text.Default(text = "Genres : ${movie.genres.joinToString(", ")}")
+                        LazyRow(
+                            horizontalArrangement = Arrangement.spacedBy(4.dp)
+                        ) {items(movie.genres) { genre ->
+                                TextWithThumbnail(text = genre )
+                            }
+                        }
                         Spacer.Vertical.Small()
                         Text.Default(text = "Status : ${movie.status}")
                         Spacer.Vertical.Small()

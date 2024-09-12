@@ -9,7 +9,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -25,6 +24,8 @@ import com.example.alexstarter.designsystem.AppScaffold
 import com.example.alexstarter.designsystem.Spacer
 import com.example.alexstarter.designsystem.appbar.TopBar
 import com.example.alexstarter.designsystem.message.ErrorMessage
+import com.example.alexstarter.designsystem.text.Text
+import com.example.alexstarter.designsystem.text.TitleWithRow
 import com.example.alexstarter.ui.theme.DarkBlue
 import com.example.alexstarter.ui.theme.openSansFontFamily
 
@@ -36,12 +37,12 @@ fun SeriesDetailRoute(
 ) {
     val seriesDetailsState by viewModel.seriesDetailsState.collectAsStateWithLifecycle()
     SeriesDetailScreen(
+        viewModel = viewModel,
         seriesDetailsState = seriesDetailsState,
         onBackClick = onBackClick
     )
 
     LaunchedEffect(seriesId) {
-        Log.d("LAUNCHED", seriesId)
         viewModel.fetchSeriesDetails(seriesId)
     }
 }
@@ -50,7 +51,8 @@ fun SeriesDetailRoute(
 @Composable
 fun SeriesDetailScreen(
     seriesDetailsState: SeriesDetailsState,
-    onBackClick: () -> Unit
+    onBackClick: () -> Unit,
+    viewModel: SeriesDetailsViewModel
 ) {
     AppScaffold(
         topBar = {
@@ -71,34 +73,33 @@ fun SeriesDetailScreen(
 
                 is SeriesDetailsState.Loaded -> {
 
+                    val seriesPopularity = seriesDetailsState.series.popularity
+                    val progress = viewModel.convertRatingToProgress(seriesPopularity)
                     val series = seriesDetailsState.series
 
                     AsyncImage(
                         modifier = Modifier.height(350.dp),
-                        model = series.image,
+                        model = series.poster_path,
                         contentScale = ContentScale.Crop,
-                        contentDescription = "image of ${series.title}"
+                        contentDescription = "image of ${series.name}"
                     )
                     Column(modifier = Modifier.padding(8.dp)) {
 
-                        Text(
-                            text = series.title,
-                            fontSize = 14.sp,
-                            fontFamily = openSansFontFamily,
-                            fontWeight = FontWeight.Bold,
-                            color = DarkBlue
-                        )
+                        TitleWithRow(text = series.name, progress = progress)
                         Spacer.Vertical.Default()
-                        Text(
-                            text = series.description,
-                            fontFamily = openSansFontFamily,
-                            fontSize = 12.sp,
-                            fontWeight = FontWeight.Light,
-                            color = DarkBlue
-                        )
-
+                        Text.Default(text = series.overview)
                         Spacer.Vertical.Small()
-
+                        series.type?.let { Text.Default(text = series.type) }
+                        Spacer.Vertical.Small()
+                        series.status?.let { Text.Default(text = series.status) }
+                        Spacer.Vertical.Small()
+                        Text.Default(text = series.first_air_date)
+                        Spacer.Vertical.Small()
+                        series.homepage?.let { Text.Default(text = it) }
+                        Spacer.Vertical.Small()
+                        Text.Default(text = series.original_language)
+                        Spacer.Vertical.Small()
+                        series.tagline?.let { Text.Default(text = series.tagline) }
                     }
 
                 }

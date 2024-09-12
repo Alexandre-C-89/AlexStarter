@@ -20,7 +20,7 @@ fun SeriesItem(
         shape = RoundedCornerShape(6.dp),
     ) {
         AsyncImage(
-            model = series.image,
+            model = series.poster_path,
             contentScale = ContentScale.Crop,
             contentDescription = "image movie"
         )

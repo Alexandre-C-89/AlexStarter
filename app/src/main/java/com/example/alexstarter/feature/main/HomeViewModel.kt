@@ -3,8 +3,8 @@ package com.example.alexstarter.feature.main
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.alexstarter.domain.movie.model.Movie
-import com.example.alexstarter.domain.series.model.Series
 import com.example.alexstarter.domain.movie.repository.MovieRepository
+import com.example.alexstarter.domain.series.model.Series
 import com.example.alexstarter.domain.series.repository.SeriesRepository
 import com.example.alexstarter.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
