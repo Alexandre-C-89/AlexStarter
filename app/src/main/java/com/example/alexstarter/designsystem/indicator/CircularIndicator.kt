@@ -79,13 +79,4 @@ fun CircularIndicator(
             fontWeight = FontWeight.Bold
         )
     }
-
-    /*CircularProgressIndicator(
-        progress = { currentProgress },
-        modifier = Modifier
-            .width(50.dp)
-            .height(50.dp),
-        strokeWidth = 6.dp,
-        color = if(currentProgress >= 0.7f) Color.Green else Color.Yellow
-    )*/
 }
