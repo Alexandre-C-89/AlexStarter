@@ -18,6 +18,7 @@ fun MovieDto.toMovieEntity(
         genres = genres?.joinToString(", ") { it.name } ?: "",
         status = status ?: "Unknown",
         moyenneDesVotes = vote_average,
+        decompteDesVotes = vote_count
     )
 }
 
@@ -28,10 +29,12 @@ fun MovieEntity.toMovie(
         image = IMAGE_BASE_URL + image,
         title = title,
         overview = overview,
+        popularity = popularity,
         dateDeSortie = dateDeSortie,
         genres = genres.split(", "),
         status = status ?: "Unknown",
-        moyenneDesVotes = moyenneDesVotes
+        moyenneDesVotes = moyenneDesVotes,
+        decompteDesVotes = decompteDesVotes
     )
 }
 

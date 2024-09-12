@@ -9,7 +9,8 @@ data class MovieDto(
     val release_date: String,
     val genres: List<GenreDto>,
     val status: String,
-    val vote_average: Double
+    val vote_average: Double,
+    val vote_count: Double
 )
 
 data class GenreDto(

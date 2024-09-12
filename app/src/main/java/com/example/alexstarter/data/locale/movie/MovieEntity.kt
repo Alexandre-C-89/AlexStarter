@@ -14,5 +14,6 @@ data class MovieEntity(
     val dateDeSortie: String,
     val genres: String,
     val status: String?,
-    val moyenneDesVotes: Double
+    val moyenneDesVotes: Double,
+    val decompteDesVotes: Double
 )

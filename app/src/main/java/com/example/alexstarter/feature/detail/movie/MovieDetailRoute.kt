@@ -34,6 +34,7 @@ import com.example.alexstarter.designsystem.indicator.CircularIndicator
 import com.example.alexstarter.designsystem.message.ErrorMessage
 import com.example.alexstarter.designsystem.text.Text
 import com.example.alexstarter.designsystem.text.Title
+import com.example.alexstarter.designsystem.text.TitleWithRow
 import com.example.alexstarter.ui.theme.DarkBlue
 import com.example.alexstarter.ui.theme.openSansFontFamily
 
@@ -95,7 +96,7 @@ fun MovieDetailScreen(
                     )
                     Column(modifier = Modifier.padding(8.dp)) {
 
-                        Title.Default(text = movie.title)
+                        TitleWithRow(text = movie.title, progress = progress)
                         Spacer.Vertical.Default()
                         Text.Default(text = movie.overview)
                         Spacer.Vertical.Small()
@@ -105,7 +106,6 @@ fun MovieDetailScreen(
                         Spacer.Vertical.Small()
                         Text.Default(text = "Status : ${movie.status}")
                         Spacer.Vertical.Small()
-                        CircularIndicator(percentage = progress)
                         Spacer.Vertical.Small()
                         LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                             items(movie.cast) { castMember ->
