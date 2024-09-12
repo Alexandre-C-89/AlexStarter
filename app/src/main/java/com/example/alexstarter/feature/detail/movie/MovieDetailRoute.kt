@@ -117,7 +117,8 @@ fun MovieDetailScreen(
                             items(movie.cast) { castMember ->
                                 if (castMember.profilePath?.isNotEmpty() == true) {
                                     ImageCardItem(
-                                        image = castMember.profilePath
+                                        image = castMember.profilePath,
+                                        text = castMember.name
                                     )
                                 } else {
                                     Image(
