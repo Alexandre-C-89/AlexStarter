@@ -2,6 +2,7 @@ package com.example.alexstarter.feature.main
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -13,6 +14,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -83,10 +85,6 @@ fun HomeScreen(
                 .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.Center
         ) {
-            /*TabRowApp(
-                modifier = Modifier.weight(1f),
-                onNavigateClick = onNavigateClick
-            )*/
             Spacer.Vertical.Small()
             Column(
                 modifier = Modifier
@@ -106,7 +104,12 @@ fun HomeScreen(
 
                 when (moviesPopularState) {
                     is Resource.Error -> {
-                        ErrorMessage(text = "Oh no something went wrong !")
+                        Box(
+                            modifier = Modifier.fillMaxSize(),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            ErrorMessage(text = "Oh no something went wrong !")
+                        }
                     }
                     is Resource.Loading -> {
                         CircularProgressIndicator()

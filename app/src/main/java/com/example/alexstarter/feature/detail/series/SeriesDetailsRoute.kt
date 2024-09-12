@@ -1,5 +1,6 @@
 package com.example.alexstarter.feature.detail.series
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -11,6 +12,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
@@ -63,7 +65,12 @@ fun SeriesDetailScreen(
         ) {
             when (seriesDetailsState) {
                 is SeriesDetailsState.Error -> {
-                    ErrorMessage(text = "Oh no something went wrong !")
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        ErrorMessage(text = "Oh no something went wrong !")
+                    }
                 }
 
                 is SeriesDetailsState.Loaded -> {
