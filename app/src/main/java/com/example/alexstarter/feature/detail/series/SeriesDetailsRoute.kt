@@ -81,7 +81,7 @@ fun SeriesDetailScreen(
 
                     AsyncImage(
                         modifier = Modifier.height(350.dp),
-                        model = series.poster_path,
+                        model = series.posterPath,
                         contentScale = ContentScale.Crop,
                         contentDescription = "image of ${series.name}"
                     )
@@ -95,11 +95,11 @@ fun SeriesDetailScreen(
                         Spacer.Vertical.Small()
                         series.status?.let { Text.Default(text = series.status) }
                         Spacer.Vertical.Small()
-                        Text.Default(text = series.first_air_date)
+                        Text.Default(text = series.firstAirDate)
                         Spacer.Vertical.Small()
                         series.homepage?.let { Text.Default(text = it) }
                         Spacer.Vertical.Small()
-                        Text.Default(text = series.original_language)
+                        Text.Default(text = series.originalLanguage)
                         Spacer.Vertical.Small()
                         series.tagline?.let { Text.Default(text = series.tagline) }
                     }

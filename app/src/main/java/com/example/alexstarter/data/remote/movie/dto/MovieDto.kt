@@ -8,11 +8,11 @@ data class MovieDto(
     val title: String,
     val overview: String,
     val popularity: Double,
-    val release_date: String,
+    @SerializedName("release_date")val releaseDate: String,
     val genres: List<GenreDto>,
     val status: String,
-    val vote_average: Double,
-    val vote_count: Double
+    @SerializedName("vote_average") val voteAverage: Double,
+    @SerializedName("vote_count") val voteCount: Double
 )
 
 data class GenreDto(

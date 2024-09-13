@@ -15,11 +15,11 @@ fun MovieDto.toEntity(
         title = title,
         overview = overview,
         popularity = popularity,
-        dateDeSortie = release_date,
+        dateDeSortie = releaseDate,
         genres = genres?.joinToString(", ") { it.name } ?: "",
         status = status ?: "Unknown",
-        moyenneDesVotes = vote_average,
-        decompteDesVotes = vote_count
+        moyenneDesVotes = voteAverage,
+        decompteDesVotes = voteCount
     )
 }
 

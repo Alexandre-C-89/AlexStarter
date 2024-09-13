@@ -1,7 +1,6 @@
 package com.example.alexstarter.data.remote.series
 
 import com.example.alexstarter.data.remote.common.GenericListDto
-import com.example.alexstarter.data.remote.di.RemoteModule
 import com.example.alexstarter.data.remote.series.dto.SerieDto
 import retrofit2.http.GET
 import retrofit2.http.Path
