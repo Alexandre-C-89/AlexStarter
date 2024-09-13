@@ -1,16 +1,17 @@
-package com.example.alexstarter.data.locale.movie
+package com.example.alexstarter.data.repository.movie.mapper
 
+import com.example.alexstarter.data.locale.movie.MovieEntity
 import com.example.alexstarter.data.remote.di.RemoteModule.Companion.IMAGE_BASE_URL
 import com.example.alexstarter.data.remote.movie.dto.MovieDto
 import com.example.alexstarter.domain.movie.model.CastMember
 import com.example.alexstarter.domain.movie.model.Movie
 import com.example.alexstarter.domain.movie.model.MovieCredits
 
-fun MovieDto.toMovieEntity(
+fun MovieDto.toEntity(
 ): MovieEntity {
     return MovieEntity(
         id = id,
-        image = IMAGE_BASE_URL + poster_path,
+        image = IMAGE_BASE_URL + posterPath,
         title = title,
         overview = overview,
         popularity = popularity,
@@ -22,8 +23,7 @@ fun MovieDto.toMovieEntity(
     )
 }
 
-fun MovieEntity.toMovie(
-): Movie {
+fun MovieEntity.toDomain(): Movie {
     return Movie(
         id = id,
         image = IMAGE_BASE_URL + image,

@@ -1,10 +1,11 @@
-package com.example.alexstarter.data.locale.series
+package com.example.alexstarter.data.repository.series
 
+import com.example.alexstarter.data.locale.series.SeriesEntity
 import com.example.alexstarter.data.remote.di.RemoteModule.Companion.IMAGE_BASE_URL
-import com.example.alexstarter.data.remote.series.dto.SeriesDto
+import com.example.alexstarter.data.remote.series.dto.SerieDto
 import com.example.alexstarter.domain.series.model.Series
 
-fun SeriesDto.toSeriesEntity(
+fun SerieDto.toSeriesEntity(
 ): SeriesEntity {
     return SeriesEntity(
         id = id,

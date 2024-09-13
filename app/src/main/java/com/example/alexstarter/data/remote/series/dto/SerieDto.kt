@@ -2,14 +2,13 @@ package com.example.alexstarter.data.remote.series.dto
 
 import com.example.alexstarter.domain.series.model.CreatedBy
 import com.example.alexstarter.domain.series.model.Genre
-import com.example.alexstarter.domain.series.model.LastEpisodeToAir
 import com.example.alexstarter.domain.series.model.Network
 import com.example.alexstarter.domain.series.model.ProductionCompany
 import com.example.alexstarter.domain.series.model.ProductionCountry
 import com.example.alexstarter.domain.series.model.Season
 import com.example.alexstarter.domain.series.model.SpokenLanguage
 
-data class SeriesDto(
+data class SerieDto(
     val id: Int,
     val adult: Boolean,
     val backdrop_path: String?,

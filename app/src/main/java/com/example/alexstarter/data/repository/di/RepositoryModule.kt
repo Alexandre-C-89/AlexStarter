@@ -1,8 +1,8 @@
 package com.example.alexstarter.data.repository.di
 
 import com.example.alexstarter.data.locale.AppDatabase
-import com.example.alexstarter.data.remote.MovieApi
-import com.example.alexstarter.data.remote.series.SeriesApi
+import com.example.alexstarter.data.remote.movie.MovieApi
+import com.example.alexstarter.data.remote.series.SerieApi
 import com.example.alexstarter.data.repository.movie.MovieRepositoryImpl
 import com.example.alexstarter.data.repository.series.SeriesRepositoryImpl
 import com.example.alexstarter.domain.movie.repository.MovieRepository
@@ -29,10 +29,10 @@ object RepositoryModule {
     @Provides
     @Singleton
     fun providesSeriesRepository(
-        seriesApi: SeriesApi,
+        serieApi: SerieApi,
         appDatabase: AppDatabase
     ): SeriesRepository {
-        return SeriesRepositoryImpl(seriesApi,appDatabase)
+        return SeriesRepositoryImpl(serieApi,appDatabase)
     }
 
 }

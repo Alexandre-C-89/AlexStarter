@@ -1,11 +1,12 @@
 package com.example.alexstarter.data.remote.di
 
-import com.example.alexstarter.data.remote.MovieApi
-import com.example.alexstarter.data.remote.series.SeriesApi
+import com.example.alexstarter.data.remote.movie.MovieApi
+import com.example.alexstarter.data.remote.series.SerieApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -26,9 +27,33 @@ class RemoteModule {
 
     @Provides
     @Singleton
-    fun provideOkHttpClient(interceptor: HttpLoggingInterceptor) : OkHttpClient {
+    fun provideApiKeyInterceptor(): Interceptor {
+        return Interceptor { chain ->
+            val original = chain.request()
+            val originalHttpUrl = original.url
+
+            // Ajouter la clé d'API à l'URL
+            val url = originalHttpUrl.newBuilder()
+                .addQueryParameter("api_key", API_KEY)
+                .build()
+
+            // Requête modifiée
+            val requestBuilder = original.newBuilder().url(url)
+            val request = requestBuilder.build()
+
+            chain.proceed(request)
+        }
+    }
+
+    @Provides
+    @Singleton
+    fun provideOkHttpClient(
+        interceptor: HttpLoggingInterceptor,
+        apiKeyInterceptor: Interceptor
+    ) : OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(interceptor)
+            .addInterceptor(apiKeyInterceptor)
             .build()
     }
 
@@ -50,8 +75,8 @@ class RemoteModule {
 
     @Provides
     @Singleton
-    fun provideSeriesApi(retrofit: Retrofit) : SeriesApi {
-        return retrofit.create(SeriesApi::class.java)
+    fun provideSeriesApi(retrofit: Retrofit) : SerieApi {
+        return retrofit.create(SerieApi::class.java)
     }
 
     companion object {
@@ -59,6 +84,5 @@ class RemoteModule {
         const val API_KEY = "ec4c99f9d011ee3e90ae246123040c86"
         const val IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500"
     }
-
 
 }

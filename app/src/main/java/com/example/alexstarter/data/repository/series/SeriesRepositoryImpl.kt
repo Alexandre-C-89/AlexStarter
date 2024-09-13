@@ -1,9 +1,7 @@
 package com.example.alexstarter.data.repository.series
 
 import com.example.alexstarter.data.locale.AppDatabase
-import com.example.alexstarter.data.locale.series.toSeries
-import com.example.alexstarter.data.locale.series.toSeriesEntity
-import com.example.alexstarter.data.remote.series.SeriesApi
+import com.example.alexstarter.data.remote.series.SerieApi
 import com.example.alexstarter.domain.series.model.Series
 import com.example.alexstarter.domain.series.repository.SeriesRepository
 import com.example.alexstarter.util.Resource
@@ -14,7 +12,7 @@ import java.io.IOException
 import javax.inject.Inject
 
 class SeriesRepositoryImpl @Inject constructor (
-    private val seriesApi: SeriesApi,
+    private val serieApi: SerieApi,
     private val appDatabase: AppDatabase
 ) : SeriesRepository {
 
@@ -38,7 +36,7 @@ class SeriesRepositoryImpl @Inject constructor (
             }
 
             val seriesPopularFromApi = try {
-                seriesApi.getSeriesPopular(page)
+                serieApi.getSeriesPopular(page)
             } catch (e: IOException) {
                 e.printStackTrace()
                 emit(Resource.Error(message = "Error loading series popular"))
@@ -71,7 +69,7 @@ class SeriesRepositoryImpl @Inject constructor (
     override suspend fun getSeriesDetails(seriesId: String): Flow<Resource<Series>> = flow {
         emit(Resource.Loading())
         try {
-            val seriesDto = seriesApi.getSeriesDetails(seriesId)
+            val seriesDto = serieApi.getSeriesDetails(seriesId)
             val series = seriesDto.toSeriesEntity().toSeries()  // Mapping
             emit(Resource.Success(series))
         } catch (e: Exception) {
