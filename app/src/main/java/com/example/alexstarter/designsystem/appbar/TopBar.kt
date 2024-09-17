@@ -1,6 +1,7 @@
 package com.example.alexstarter.designsystem.appbar
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -32,17 +33,16 @@ import com.example.alexstarter.ui.theme.White
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopBar(
-    shadowElevation: Dp = 0.dp,
     scrollBehavior: TopAppBarScrollBehavior? = null,
     onNavigationClick: (() -> Unit)? = null,
     onSearchClick: (() -> Unit)? = null,
     onBackClick: (() -> Unit)? = null,
 ) {
-    Surface(shadowElevation = shadowElevation) {
+    Column {
         TopAppBar(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(70.dp),
+                .height(55.dp),
             title = {
                 Box(
                     modifier = Modifier.fillMaxSize(),
@@ -96,7 +96,6 @@ fun TopBar(
 fun TopBarPreview() {
     AlexStarterTheme {
         TopBar(
-            shadowElevation = 0.dp,
             scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(
                 rememberTopAppBarState()
             ),
