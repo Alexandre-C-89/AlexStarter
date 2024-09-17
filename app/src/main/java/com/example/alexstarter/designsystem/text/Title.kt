@@ -7,6 +7,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import com.example.alexstarter.ui.theme.DarkBlue
+import com.example.alexstarter.ui.theme.White
 import com.example.alexstarter.ui.theme.openSansFontFamily
 
 object Title {
@@ -19,7 +20,7 @@ object Title {
             fontWeight = FontWeight.Bold,
             fontFamily = openSansFontFamily,
             textAlign = TextAlign.Start,
-            color = DarkBlue
+            color = White
         )
     )
 
@@ -30,7 +31,7 @@ object Title {
             fontSize = 18.sp,
             fontWeight = FontWeight.Bold,
             fontFamily = openSansFontFamily,
-            color = DarkBlue
+            color = White
         )
     )
 
@@ -41,7 +42,7 @@ object Title {
             fontSize = 14.sp,
             fontWeight = FontWeight.Bold,
             fontFamily = openSansFontFamily,
-            color = DarkBlue
+            color = White
         )
     )
 

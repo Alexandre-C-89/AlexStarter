@@ -45,7 +45,7 @@ object Text {
             fontFamily = openSansFontFamily,
             fontSize = 12.sp,
             fontWeight = FontWeight.SemiBold,
-            color = DarkBlue
+            color = White
         )
     )
 

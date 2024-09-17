@@ -1,6 +1,7 @@
 package com.example.alexstarter.feature.main
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -32,6 +33,7 @@ import com.example.alexstarter.designsystem.message.ErrorMessage
 import com.example.alexstarter.domain.movie.model.Movie
 import com.example.alexstarter.domain.series.model.Series
 import com.example.alexstarter.ui.theme.DarkBlue
+import com.example.alexstarter.ui.theme.White
 import com.example.alexstarter.ui.theme.openSansFontFamily
 import com.example.alexstarter.util.Resource
 
@@ -69,8 +71,7 @@ fun HomeScreen(
     seriesPopularState: Resource<List<Series>>,
     onMovieClick: (Int) -> Unit,
     onSeriesClick: (Int) -> Unit,
-    onMenuClick: () -> Unit,
-    //onNavigateClick: (String) -> Unit
+    onMenuClick: () -> Unit
 ) {
     AppScaffold(
         topBar = {
@@ -82,131 +83,124 @@ fun HomeScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .verticalScroll(rememberScrollState()),
+                .verticalScroll(rememberScrollState())
+                .padding(8.dp)
+                .background(color = DarkBlue),
             verticalArrangement = Arrangement.Center
         ) {
+            Text(
+                text = "Popular",
+                fontFamily = openSansFontFamily,
+                fontWeight = FontWeight.Bold,
+                fontSize = 14.sp,
+                textAlign = TextAlign.Start,
+                color = White
+            )
+
             Spacer.Vertical.Small()
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(8.dp)
-            ) {
-                Text(
-                    text = "Popular",
-                    fontFamily = openSansFontFamily,
-                    fontWeight = FontWeight.SemiBold,
-                    fontSize = 14.sp,
-                    textAlign = TextAlign.Start,
-                    color = DarkBlue
-                )
 
-                Spacer.Vertical.Small()
+            when (moviesPopularState) {
+                is Resource.Error -> {
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        ErrorMessage(text = "Oh no something went wrong !")
+                    }
+                }
 
-                when (moviesPopularState) {
-                    is Resource.Error -> {
-                        Box(
-                            modifier = Modifier.fillMaxSize(),
-                            contentAlignment = Alignment.Center
-                        ) {
+                is Resource.Loading -> {
+                    CircularProgressIndicator()
+                }
+
+                is Resource.Success -> {
+
+                    LazyRow(
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        items(moviesPopularState.data!!.size) { index ->
+                            MovieItem(
+                                onClick = { onMovieClick(moviesPopularState.data[index].id) },
+                                movie = moviesPopularState.data[index]
+                            )
+                        }
+                    }
+
+                    Spacer.Vertical.Medium()
+
+                    Text(
+                        text = "Upcoming",
+                        fontFamily = openSansFontFamily,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 14.sp,
+                        textAlign = TextAlign.Start,
+                        color = White
+                    )
+
+                    Spacer.Vertical.Small()
+
+                    when (moviesUpcomingState) {
+                        is Resource.Error -> {
                             ErrorMessage(text = "Oh no something went wrong !")
                         }
-                    }
-                    is Resource.Loading -> {
-                        CircularProgressIndicator()
-                    }
 
-                    is Resource.Success -> {
-
-                        LazyRow(
-                            horizontalArrangement = Arrangement.spacedBy(8.dp)
-                        ) {
-                            items(moviesPopularState.data!!.size) { index ->
-                                MovieItem(
-                                    onClick = { onMovieClick(moviesPopularState.data[index].id) },
-                                    movie = moviesPopularState.data[index]
-                                )
-                            }
+                        is Resource.Loading -> {
+                            CircularProgressIndicator()
                         }
 
-                        Spacer.Vertical.Medium()
-
-                        Text(
-                            text = "Upcoming",
-                            fontFamily = openSansFontFamily,
-                            fontWeight = FontWeight.SemiBold,
-                            fontSize = 14.sp,
-                            textAlign = TextAlign.Start,
-                            color = DarkBlue
-                        )
-
-                        Spacer.Vertical.Small()
-
-                        when (moviesUpcomingState) {
-                            is Resource.Error -> {
-                                ErrorMessage(text = "Oh no something went wrong !")
-                            }
-
-                            is Resource.Loading -> {
-                                CircularProgressIndicator()
-                            }
-
-                            is Resource.Success -> {
-                                LazyRow(
-                                    horizontalArrangement = Arrangement.spacedBy(8.dp)
-                                ) {
-                                    items(moviesUpcomingState.data!!.size) { index ->
-                                        MovieItem(
-                                            onClick = { onMovieClick(moviesUpcomingState.data[index].id) },
-                                            movie = moviesUpcomingState.data[index]
-                                        )
-                                    }
+                        is Resource.Success -> {
+                            LazyRow(
+                                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                            ) {
+                                items(moviesUpcomingState.data!!.size) { index ->
+                                    MovieItem(
+                                        onClick = { onMovieClick(moviesUpcomingState.data[index].id) },
+                                        movie = moviesUpcomingState.data[index]
+                                    )
                                 }
-
                             }
+
+                        }
+                    }
+
+                    Spacer.Vertical.Default()
+
+                    Text(
+                        text = "Series popular",
+                        fontFamily = openSansFontFamily,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 14.sp,
+                        textAlign = TextAlign.Start,
+                        color = White
+                    )
+
+                    Spacer.Vertical.Default()
+
+                    when (seriesPopularState) {
+                        is Resource.Error -> {
+                            ErrorMessage(text = "Oh no something went wrong !")
                         }
 
-                        Spacer.Vertical.Default()
+                        is Resource.Loading -> {
+                            CircularProgressIndicator()
+                        }
 
-                        Text(
-                            text = "Series popular",
-                            fontFamily = openSansFontFamily,
-                            fontWeight = FontWeight.SemiBold,
-                            fontSize = 14.sp,
-                            textAlign = TextAlign.Start,
-                            color = DarkBlue
-                        )
-
-                        Spacer.Vertical.Default()
-
-                        when (seriesPopularState) {
-                            is Resource.Error -> {
-                                ErrorMessage(text = "Oh no something went wrong !")
-                            }
-
-                            is Resource.Loading -> {
-                                CircularProgressIndicator()
-                            }
-
-                            is Resource.Success -> {
-                                LazyRow(
-                                    horizontalArrangement = Arrangement.spacedBy(8.dp)
-                                ) {
-                                    items(seriesPopularState.data!!.size) { index ->
-                                        SeriesItem(
-                                            onClick = { onSeriesClick(seriesPopularState.data[index].id) },
-                                            series = seriesPopularState.data[index]
-                                        )
-                                    }
+                        is Resource.Success -> {
+                            LazyRow(
+                                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                            ) {
+                                items(seriesPopularState.data!!.size) { index ->
+                                    SeriesItem(
+                                        onClick = { onSeriesClick(seriesPopularState.data[index].id) },
+                                        series = seriesPopularState.data[index]
+                                    )
                                 }
-
                             }
-                        }
 
+                        }
                     }
 
                 }
-
-                Spacer.Vertical.Medium()
 
             }
         }
