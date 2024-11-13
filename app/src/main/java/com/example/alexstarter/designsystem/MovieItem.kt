@@ -38,7 +38,7 @@ fun MovieItem(
         ){
             AsyncImage(
                 modifier = Modifier
-                    .width(240.dp)
+                    .width(300.dp)
                     .height(170.dp)
                     .background(color = Color.Transparent, shape = RoundedCornerShape(6.dp)),
                 model = movie.image,

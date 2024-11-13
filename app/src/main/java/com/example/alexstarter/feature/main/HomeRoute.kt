@@ -17,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -30,6 +31,7 @@ import com.example.alexstarter.designsystem.SeriesItem
 import com.example.alexstarter.designsystem.Spacer
 import com.example.alexstarter.designsystem.appbar.TopBar
 import com.example.alexstarter.designsystem.message.ErrorMessage
+import com.example.alexstarter.designsystem.text.Title
 import com.example.alexstarter.domain.movie.model.Movie
 import com.example.alexstarter.domain.series.model.Series
 import com.example.alexstarter.ui.theme.DarkBlue
@@ -87,14 +89,7 @@ fun HomeScreen(
                 .padding(8.dp),
             verticalArrangement = Arrangement.Center
         ) {
-            Text(
-                text = "Popular",
-                fontFamily = openSansFontFamily,
-                fontWeight = FontWeight.Bold,
-                fontSize = 14.sp,
-                textAlign = TextAlign.Start,
-                color = White
-            )
+            Title.Big(text = "Popular")
 
             Spacer.Vertical.Small()
 
@@ -127,14 +122,7 @@ fun HomeScreen(
 
                     Spacer.Vertical.Medium()
 
-                    Text(
-                        text = "Upcoming",
-                        fontFamily = openSansFontFamily,
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 14.sp,
-                        textAlign = TextAlign.Start,
-                        color = White
-                    )
+                    Title.Big(text = "Upcoming")
 
                     Spacer.Vertical.Small()
 
@@ -164,14 +152,7 @@ fun HomeScreen(
 
                     Spacer.Vertical.Default()
 
-                    Text(
-                        text = "Series popular",
-                        fontFamily = openSansFontFamily,
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 14.sp,
-                        textAlign = TextAlign.Start,
-                        color = White
-                    )
+                    Title.Big(text = "Series popular")
 
                     Spacer.Vertical.Default()
 
