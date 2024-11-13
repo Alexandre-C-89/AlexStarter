@@ -84,8 +84,7 @@ fun HomeScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
-                .padding(8.dp)
-                .background(color = DarkBlue),
+                .padding(8.dp),
             verticalArrangement = Arrangement.Center
         ) {
             Text(
