@@ -1,10 +1,12 @@
 package com.example.alexstarter.feature.detail.movie
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -19,6 +21,11 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawWithContent
+import androidx.compose.ui.graphics.BlendMode
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -77,6 +84,7 @@ fun MovieDetailScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
+                .background(color = DarkBlue)
         ) {
             when (movieDetailsState) {
 
@@ -92,24 +100,43 @@ fun MovieDetailScreen(
 
                 is MovieDetailState.Loaded -> {
 
-                    val movieRating = movieDetailsState.movie.moyenneDesVotes
-                    val progress = viewModel.convertRatingToProgress(movieRating)
+                    //val movieRating = movieDetailsState.movie.moyenneDesVotes
+                    //val progress = viewModel.convertRatingToProgress(movieRating)
                     val movie = movieDetailsState.movie
 
-                    AsyncImage(
-                        modifier = Modifier.height(350.dp),
-                        model = movie.image,
-                        contentScale = ContentScale.Crop,
-                        contentDescription = "image of ${movie.title}"
-                    )
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                        contentAlignment = Alignment.BottomStart
+                    ){
+                        AsyncImage(
+                            modifier = Modifier
+                                .height(350.dp)
+                                .graphicsLayer { alpha = 0.99f }
+                                .drawWithContent {
+                                    val colors = listOf(
+                                        Color.Black,
+                                        Color.Transparent
+                                    )
+                                    drawContent()
+                                    drawRect(
+                                        brush = Brush.verticalGradient(colors),
+                                        blendMode = BlendMode.DstIn
+                                    )
+                                },
+                            model = movie.image,
+                            contentScale = ContentScale.Crop,
+                            contentDescription = "image of ${movie.title}"
+                        )
+                        TitleWithRow(text = movie.title)
+                    }
                     Column(modifier = Modifier.padding(8.dp)) {
 
-                        TitleWithRow(text = movie.title, progress = progress)
                         Spacer.Vertical.Default()
-                        Text.Default(text = movie.overview)
-                        Spacer.Vertical.Small()
+                        Text.Small(text = movie.overview)
+                        Spacer.Vertical.Default()
                         Text.Default(text = "Date de sortie : ${movie.dateDeSortie}")
-                        Spacer.Vertical.Small()
+                        Spacer.Vertical.Default()
                         LazyRow(
                             horizontalArrangement = Arrangement.spacedBy(4.dp)
                         ) {
@@ -117,10 +144,11 @@ fun MovieDetailScreen(
                                 TextWithThumbnail(text = genre)
                             }
                         }
-                        Spacer.Vertical.Small()
+                        Spacer.Vertical.Default()
                         Text.Default(text = "Status : ${movie.status}")
-                        Spacer.Vertical.Small()
-                        Spacer.Vertical.Small()
+                        Spacer.Vertical.Default()
+                        Text.Default(text = "Actors :")
+                        Spacer.Vertical.Default()
                         LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                             items(movie.cast) { castMember ->
                                 if (castMember.profilePath?.isNotEmpty() == true) {
