@@ -1,5 +1,6 @@
 package com.example.alexstarter.feature.detail.movie
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -33,6 +34,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.alexstarter.R
 import com.example.alexstarter.designsystem.AppScaffold
@@ -50,15 +52,19 @@ import com.example.alexstarter.ui.theme.openSansFontFamily
 
 @Composable
 fun MovieDetailRoute(
+    navController: NavController,
     movieId: String,
     viewModel: MovieDetailViewModel = hiltViewModel(),
-    onBackClick: () -> Unit
+    onBackClick: () -> Unit,
+    //onActorClick: (Int) -> Unit
 ) {
     val movieDetailsState by viewModel.movieDetailsState.collectAsStateWithLifecycle()
     MovieDetailScreen(
         viewModel = viewModel,
         movieDetailsState = movieDetailsState,
-        onBackClick = onBackClick
+        onBackClick = onBackClick,
+        onActorClick = { actorId ->
+            navController.navigate("actor/$actorId") }
     )
 
     LaunchedEffect(movieId) {
@@ -71,7 +77,8 @@ fun MovieDetailRoute(
 fun MovieDetailScreen(
     viewModel: MovieDetailViewModel,
     movieDetailsState: MovieDetailState,
-    onBackClick: () -> Unit
+    onBackClick: () -> Unit,
+    onActorClick: (Int) -> Unit,
 ) {
     AppScaffold(
         topBar = {
@@ -108,7 +115,8 @@ fun MovieDetailScreen(
                         modifier = Modifier
                             .fillMaxWidth(),
                         contentAlignment = Alignment.BottomStart
-                    ){
+                    ) {
+                        Log.d("MOVIEDETAILSROUTE", "${movie.image}")
                         AsyncImage(
                             modifier = Modifier
                                 .height(350.dp)
@@ -154,7 +162,8 @@ fun MovieDetailScreen(
                                 if (castMember.profilePath?.isNotEmpty() == true) {
                                     ImageCardItem(
                                         image = castMember.profilePath,
-                                        text = castMember.name
+                                        text = castMember.name,
+                                        onClick = { onActorClick(castMember.id) }
                                     )
                                 } else {
                                     Image(
