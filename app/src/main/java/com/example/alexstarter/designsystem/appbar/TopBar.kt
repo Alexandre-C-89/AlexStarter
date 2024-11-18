@@ -38,11 +38,9 @@ fun TopBar(
     onSearchClick: (() -> Unit)? = null,
     onBackClick: (() -> Unit)? = null,
 ) {
-    Column {
+    Column{
         TopAppBar(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(55.dp),
+            modifier = Modifier.fillMaxWidth(),
             title = {
                 Box(
                     modifier = Modifier.fillMaxSize(),

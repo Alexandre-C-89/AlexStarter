@@ -20,7 +20,7 @@ object Text {
         text = text,
         style = TextStyle(
             fontFamily = openSansFontFamily,
-            fontSize = 20.sp,
+            fontSize = 28.sp,
             fontWeight = FontWeight.SemiBold,
             color = DarkBlue
         )
@@ -32,7 +32,7 @@ object Text {
         text = text,
         style = TextStyle(
             fontFamily = openSansFontFamily,
-            fontSize = 16.sp,
+            fontSize = 24.sp,
             fontWeight = FontWeight.SemiBold,
             color = DarkBlue
         )
@@ -43,7 +43,7 @@ object Text {
         text = text,
         style = TextStyle(
             fontFamily = openSansFontFamily,
-            fontSize = 12.sp,
+            fontSize = 14.sp,
             fontWeight = FontWeight.SemiBold,
             color = White
         )
@@ -54,9 +54,9 @@ object Text {
         text = text,
         style = TextStyle(
             fontFamily = openSansFontFamily,
-            fontSize = 10.sp,
+            fontSize = 12.sp,
             fontWeight = FontWeight.Normal,
-            color = DarkBlue
+            color = White
         )
     )
 

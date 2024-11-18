@@ -87,7 +87,7 @@ fun SeriesDetailScreen(
                     )
                     Column(modifier = Modifier.padding(8.dp)) {
 
-                        TitleWithRow(text = series.name, progress = progress)
+                        TitleWithRow(text = series.name)
                         Spacer.Vertical.Default()
                         Text.Default(text = series.overview)
                         Spacer.Vertical.Small()

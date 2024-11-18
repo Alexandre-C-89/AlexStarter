@@ -1,5 +1,6 @@
 package com.example.alexstarter.data.remote.di
 
+import com.example.alexstarter.data.remote.actor.ActorApi
 import com.example.alexstarter.data.remote.movie.MovieApi
 import com.example.alexstarter.data.remote.series.SerieApi
 import dagger.Module
@@ -77,6 +78,12 @@ class RemoteModule {
     @Singleton
     fun provideSeriesApi(retrofit: Retrofit) : SerieApi {
         return retrofit.create(SerieApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideActorApi(retrofit: Retrofit) : ActorApi {
+        return retrofit.create(ActorApi::class.java)
     }
 
     companion object {

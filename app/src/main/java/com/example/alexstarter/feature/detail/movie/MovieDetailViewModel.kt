@@ -45,7 +45,6 @@ class MovieDetailViewModel
     }
 
     fun convertRatingToProgress(rating: Double): Float {
-        // Les notes vont de 0 à 10, donc on divise par 10 pour obtenir un pourcentage
         return (rating / 10).toFloat()
     }
 

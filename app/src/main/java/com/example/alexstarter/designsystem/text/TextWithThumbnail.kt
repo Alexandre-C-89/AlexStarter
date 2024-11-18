@@ -25,7 +25,7 @@ fun TextWithThumbnail(
         shape = RoundedCornerShape(4.dp)
     ) {
         Text(
-            modifier = Modifier.padding(2.dp),
+            modifier = Modifier.padding(4.dp),
             text = text,
             style = TextStyle(
                 fontFamily = openSansFontFamily,
