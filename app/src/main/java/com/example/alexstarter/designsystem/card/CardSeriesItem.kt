@@ -69,7 +69,7 @@ fun CardSeriesItem(
                     maxLines = 3,
                     overflow = TextOverflow.Clip
                 )
-                Spacer.Vertical.Small()
+                Spacer.Vertical.Default()
                 Text(
                     text = series.type ?: "types : no",
                     fontSize = 8.sp,
