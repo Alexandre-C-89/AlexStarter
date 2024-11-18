@@ -80,6 +80,7 @@ fun HomeScreen(
         topBar = {
             TopBar(
                 onNavigationClick = onMenuClick,
+                text = "AlexStarter"
             )
         }
     ) {

@@ -37,6 +37,7 @@ fun TopBar(
     onNavigationClick: (() -> Unit)? = null,
     onSearchClick: (() -> Unit)? = null,
     onBackClick: (() -> Unit)? = null,
+    text: String? = null
 ) {
     Column{
         TopAppBar(
@@ -46,16 +47,18 @@ fun TopBar(
                     modifier = Modifier.fillMaxSize(),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text(
-                        modifier = Modifier.fillMaxWidth(),
-                        text = "Movie",
-                        style = TextStyle(
-                            fontSize = 16.sp,
-                            fontWeight = FontWeight.Medium,
-                            textAlign = TextAlign.Start,
-                            color = White
+                    if (text != null) {
+                        Text(
+                            modifier = Modifier.fillMaxWidth(),
+                            text = text,
+                            style = TextStyle(
+                                fontSize = 16.sp,
+                                fontWeight = FontWeight.Medium,
+                                textAlign = TextAlign.Start,
+                                color = White
+                            )
                         )
-                    )
+                    }
                 }
             },
             colors = TopAppBarDefaults.topAppBarColors(

@@ -83,7 +83,8 @@ fun MovieDetailScreen(
     AppScaffold(
         topBar = {
             TopBar(
-                onBackClick = onBackClick
+                onBackClick = onBackClick,
+                text = "Movie"
             )
         }
     ) {

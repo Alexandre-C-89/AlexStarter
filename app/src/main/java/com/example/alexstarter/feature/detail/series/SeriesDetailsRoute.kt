@@ -64,7 +64,8 @@ fun SeriesDetailScreen(
     AppScaffold(
         topBar = {
             TopBar(
-                onBackClick = onBackClick
+                onBackClick = onBackClick,
+                text = "Series"
             )
         }
     ) {
