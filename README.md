@@ -40,13 +40,13 @@ Lancez l'application sur un émulateur ou un appareil réel connecté.
 Ajoute ici des captures d'écran montrant :
 
 ####La liste des films.
-![La page d'accueil où ce trouvent les listes de films](image/home_screen.png)
+![La page d'accueil où ce trouvent les listes de films](screenreadme/home_screen.png)
 
 ####Une page de détails de film ou de série.
-![La page de détails d'un film ou une série](image/details_screen.png)
+![La page de détails d'un film ou une série](screenreadme/details_screen.png)
 
 ####La page d'un acteur.
-![La page d'information sur un acteur](image/home_screen.png)
+![La page d'information sur un acteur](screenreadme/home_screen.png)
 
 ##Contributeur
 
