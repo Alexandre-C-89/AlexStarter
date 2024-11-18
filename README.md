@@ -40,13 +40,13 @@ git clone https://github.com/<ton-username>/AlexStarter.git
 Ajoute ici des captures d'écran montrant :
 
 #### La liste des films.
-![La page d'accueil où ce trouvent les listes de films](screenreadme/home_screen.png)
+![home_screen](https://github.com/user-attachments/assets/05bc3bf0-b230-4798-a9e8-3dface907e8e)
 
 #### Une page de détails de film ou de série.
-![La page de détails d'un film ou une série](screenreadme/details_screen.png)
+![details_screen](https://github.com/user-attachments/assets/94dad4b3-3ec6-475d-865d-e8f524205a49)
 
 #### La page d'un acteur.
-![La page d'information sur un acteur](screenreadme/home_screen.png)
+![actor_screen](https://github.com/user-attachments/assets/e68ead88-e46c-4918-a329-7083504a529a)
 
 ## Contributeur
 
