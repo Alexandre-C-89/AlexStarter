@@ -30,6 +30,7 @@ import com.example.alexstarter.designsystem.MovieItem
 import com.example.alexstarter.designsystem.SeriesItem
 import com.example.alexstarter.designsystem.Spacer
 import com.example.alexstarter.designsystem.appbar.TopBar
+import com.example.alexstarter.designsystem.card.CardSeriesItem
 import com.example.alexstarter.designsystem.message.ErrorMessage
 import com.example.alexstarter.designsystem.text.Title
 import com.example.alexstarter.domain.movie.model.Movie
@@ -170,7 +171,7 @@ fun HomeScreen(
                                 horizontalArrangement = Arrangement.spacedBy(8.dp)
                             ) {
                                 items(seriesPopularState.data!!.size) { index ->
-                                    SeriesItem(
+                                    CardSeriesItem(
                                         onClick = { onSeriesClick(seriesPopularState.data[index].id) },
                                         series = seriesPopularState.data[index]
                                     )
