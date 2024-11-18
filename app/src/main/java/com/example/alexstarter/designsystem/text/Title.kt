@@ -2,6 +2,7 @@ package com.example.alexstarter.designsystem.text
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -16,11 +17,11 @@ object Title {
     fun Big(text: String) = Text(
         text = text,
         style = TextStyle(
-            fontSize = 28.sp,
+            fontSize = 22.sp,
             fontWeight = FontWeight.Bold,
             fontFamily = openSansFontFamily,
             textAlign = TextAlign.Start,
-            color = White
+            color = Color.Black
         )
     )
 
@@ -28,10 +29,10 @@ object Title {
     fun Medium(text: String) = Text(
         text = text,
         style = TextStyle(
-            fontSize = 18.sp,
+            fontSize = 20.sp,
             fontWeight = FontWeight.Bold,
             fontFamily = openSansFontFamily,
-            color = White
+            color = Color.Black
         )
     )
 
@@ -39,10 +40,21 @@ object Title {
     fun Default(text: String) = Text(
         text = text,
         style = TextStyle(
-            fontSize = 14.sp,
+            fontSize = 18.sp,
             fontWeight = FontWeight.Bold,
             fontFamily = openSansFontFamily,
-            color = White
+            color = Color.Black
+        )
+    )
+
+    @Composable
+    fun Small(text: String) = Text(
+        text = text,
+        style = TextStyle(
+            fontSize = 16.sp,
+            fontWeight = FontWeight.Bold,
+            fontFamily = openSansFontFamily,
+            color = Color.Black
         )
     )
 
