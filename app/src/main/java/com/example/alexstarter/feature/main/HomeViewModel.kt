@@ -30,10 +30,14 @@ class HomeViewModel @Inject constructor(
     private val _seriesPopularState = MutableStateFlow<Resource<List<Series>>>(Resource.Loading())
     val seriesPopularState: StateFlow<Resource<List<Series>>> = _seriesPopularState
 
+    private val _seriesTopRatedState = MutableStateFlow<Resource<List<Series>>>(Resource.Loading())
+    val seriesTopRatedState: StateFlow<Resource<List<Series>>> = _seriesTopRatedState
+
     init {
         fetchMoviesPopular()
         fetchMoviesUpcoming()
         fetchSeriesPopular()
+        fetchSeriesTopRated()
     }
 
     private fun fetchMoviesPopular() {
@@ -63,6 +67,16 @@ class HomeViewModel @Inject constructor(
                 .flowOn(Dispatchers.IO)
                 .collect { result ->
                     _seriesPopularState.value = result
+                }
+        }
+    }
+
+    private fun fetchSeriesTopRated() {
+        viewModelScope.launch {
+            seriesRepository.getSeriesTopRated(forceFetchFromRemote = false, page = 1)
+                .flowOn(Dispatchers.IO)
+                .collect { result ->
+                    _seriesTopRatedState.value = result
                 }
         }
     }

@@ -13,6 +13,11 @@ interface SerieApi {
         @Query("page") page: Int
     ): GenericListDto<SerieDto>
 
+    @GET("tv/top_rated")
+    suspend fun getSeriesTopRated(
+        @Query("page") page: Int
+    ): GenericListDto<SerieDto>
+
     @GET("tv/{series_id}")
     suspend fun getSeriesDetails(
         @Path("series_id") seriesId: String

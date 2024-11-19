@@ -13,4 +13,7 @@ interface SeriesDao {
     @Query("SELECT * FROM series")
     suspend fun getSeriesPopular(): List<SeriesEntity>
 
+    @Query("SELECT * FROM series")
+    suspend fun getSeriesTopRated(): List<SeriesEntity>
+
 }

@@ -50,10 +50,12 @@ fun HomeRoute(
     val moviesPopularState by viewModel.moviesPopular.collectAsStateWithLifecycle()
     val moviesUpcomingState by viewModel.moviesUpcoming.collectAsStateWithLifecycle()
     val seriesPopularState by viewModel.seriesPopularState.collectAsStateWithLifecycle()
+    val seriesTopRatedState by viewModel.seriesTopRatedState.collectAsStateWithLifecycle()
     HomeScreen(
         moviesPopularState = moviesPopularState,
         moviesUpcomingState = moviesUpcomingState,
         seriesPopularState = seriesPopularState,
+        seriesTopRatedState = seriesTopRatedState,
         onMovieClick = { movieId ->
             navController.navigate("movie/$movieId")
         },
@@ -72,6 +74,7 @@ fun HomeScreen(
     moviesPopularState: Resource<List<Movie>>,
     moviesUpcomingState: Resource<List<Movie>>,
     seriesPopularState: Resource<List<Series>>,
+    seriesTopRatedState: Resource<List<Series>>,
     onMovieClick: (Int) -> Unit,
     onSeriesClick: (Int) -> Unit,
     onMenuClick: () -> Unit
@@ -175,6 +178,36 @@ fun HomeScreen(
                                     CardSeriesItem(
                                         onClick = { onSeriesClick(seriesPopularState.data[index].id) },
                                         series = seriesPopularState.data[index]
+                                    )
+                                }
+                            }
+
+                        }
+                    }
+
+                    Spacer.Vertical.Default()
+
+                    Title.Big(text = "Series Top Rated")
+
+                    Spacer.Vertical.Default()
+
+                    when (seriesTopRatedState) {
+                        is Resource.Error -> {
+                            ErrorMessage(text = "Oh no something went wrong !")
+                        }
+
+                        is Resource.Loading -> {
+                            CircularProgressIndicator()
+                        }
+
+                        is Resource.Success -> {
+                            LazyRow(
+                                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                            ) {
+                                items(seriesTopRatedState.data!!.size) { index ->
+                                    CardSeriesItem(
+                                        onClick = { onSeriesClick(seriesTopRatedState.data[index].id) },
+                                        series = seriesTopRatedState.data[index]
                                     )
                                 }
                             }
