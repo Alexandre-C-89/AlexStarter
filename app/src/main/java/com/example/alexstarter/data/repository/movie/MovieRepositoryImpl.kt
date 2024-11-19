@@ -11,6 +11,7 @@ import com.example.alexstarter.domain.movie.model.Movie
 import com.example.alexstarter.domain.movie.repository.MovieRepository
 import com.example.alexstarter.util.Resource
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
 import java.io.IOException
@@ -152,6 +153,17 @@ class MovieRepositoryImpl @Inject constructor(
         } catch (e: Exception) {
             emit(Resource.Error(e.localizedMessage ?: "An error occurred"))
         }
+    }
+
+    override suspend fun getMovieVideos(movieId: String): Flow<String?> = flow {
+        val response = movieApi.getMovieVideos(movieId)
+        val videoKey = response.results
+            .firstOrNull { it.site == "YouTube" && it.type == "Trailer" && it.official }
+            ?.key
+
+        emit(videoKey) // Émet la clé de la première vidéo trouvée ou null
+    }.catch { e ->
+        emit(null) // Émet null en cas d'erreur
     }
 
 }

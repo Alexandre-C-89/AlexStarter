@@ -3,6 +3,7 @@ package com.example.alexstarter.data.remote.movie
 import com.example.alexstarter.data.remote.common.GenericListDto
 import com.example.alexstarter.data.remote.movie.dto.MovieDto
 import com.example.alexstarter.domain.movie.model.MovieCredits
+import com.example.alexstarter.domain.movie.model.VideoResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -23,6 +24,11 @@ interface MovieApi {
     suspend fun getMovieDetails(
         @Path("movieId") movieId: String
     ): MovieDto
+
+    @GET("movie/{movieId}/videos")
+    suspend fun getMovieVideos(
+        @Path("movieId") movieId: String
+    ): VideoResponse
 
     @GET("movie/{movieId}/credits")
     suspend fun getMovieCredits(
