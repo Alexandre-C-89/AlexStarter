@@ -68,11 +68,6 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-    // Retrofit
-    /*implementation(libs.retrofit)
-    implementation(libs.converter.gson)
-    implementation("com.squareup.okhttp3:okhttp:4.9.3")
-    implementation("com.squareup.okhttp3:logging-interceptor:4.9.3")*/
 
     // viewModel
     implementation (libs.androidx.lifecycle.viewmodel.ktx)
@@ -114,5 +109,11 @@ dependencies {
 
     // system UI Controller
     implementation("com.google.accompanist:accompanist-systemuicontroller:0.27.0")
+
+    // Carousel
+    implementation("androidx.compose.material3:material3:1.3.1")
+
+    // Youtube video
+    implementation("com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.0")
 
 }

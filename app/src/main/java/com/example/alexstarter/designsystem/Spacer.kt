@@ -38,16 +38,19 @@ object Spacer {
         private fun HorizontalSpacer(size: Dp) = Spacer(modifier = Modifier.width(size))
 
         @Composable
-        fun Default() = HorizontalSpacer(size = Spacings.Default)
-
-        @Composable
-        fun Medium() = HorizontalSpacer(size = Spacings.Medium)
+        fun Mega() = HorizontalSpacer(size = Spacings.Mega)
 
         @Composable
         fun Large() = HorizontalSpacer(size = Spacings.Large)
 
         @Composable
-        fun Mega() = HorizontalSpacer(size = Spacings.Mega)
+        fun Medium() = HorizontalSpacer(size = Spacings.Medium)
+
+        @Composable
+        fun Default() = HorizontalSpacer(size = Spacings.Default)
+
+        @Composable
+        fun Small() = HorizontalSpacer(size = Spacings.Small)
 
     }
 }

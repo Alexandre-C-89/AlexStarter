@@ -11,6 +11,11 @@ interface SeriesRepository {
         page: Int
     ): Flow<Resource<List<Series>>>
 
+    suspend fun getSeriesTopRated(
+        forceFetchFromRemote: Boolean,
+        page: Int
+    ): Flow<Resource<List<Series>>>
+
     suspend fun getSeriesDetails(seriesId: String): Flow<Resource<Series>>
 
 }

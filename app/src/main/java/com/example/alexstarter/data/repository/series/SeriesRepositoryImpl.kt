@@ -66,6 +66,56 @@ class SeriesRepositoryImpl @Inject constructor (
         }
     }
 
+    override suspend fun getSeriesTopRated(
+        forceFetchFromRemote: Boolean,
+        page: Int
+    ): Flow<Resource<List<Series>>> {
+        return flow {
+
+            emit(Resource.Loading())
+            val localSeriesTopRated = appDatabase.seriesDao.getSeriesTopRated()
+            val shouldLoadLocalSeries = localSeriesTopRated.isNotEmpty() && !forceFetchFromRemote
+
+            if (shouldLoadLocalSeries) {
+                emit(Resource.Success(
+                    data = localSeriesTopRated.map { seriesEntity ->
+                        seriesEntity.toSeries()
+                    }
+                ))
+                return@flow
+            }
+
+            val seriesTopRatedFromApi = try {
+                serieApi.getSeriesTopRated(page)
+            } catch (e: IOException) {
+                e.printStackTrace()
+                emit(Resource.Error(message = "Error loading series popular"))
+                return@flow
+            } catch (e: HttpException) {
+                e.printStackTrace()
+                emit(Resource.Error(message = "Error loading series popular"))
+                return@flow
+            } catch (e: Exception) {
+                e.printStackTrace()
+                emit(Resource.Error(message = "Error loading series popular"))
+                return@flow
+            }
+
+            val seriesEntities = seriesTopRatedFromApi.results.let {
+                it.map { seriesDto ->
+                    seriesDto.toSeriesEntity()
+                }
+            }
+
+            appDatabase.seriesDao.upsertSeriesList(seriesEntities)
+
+            emit(Resource.Success(
+                seriesEntities.map { it.toSeries() }
+            ))
+
+        }
+    }
+
     override suspend fun getSeriesDetails(seriesId: String): Flow<Resource<Series>> = flow {
         emit(Resource.Loading())
         try {

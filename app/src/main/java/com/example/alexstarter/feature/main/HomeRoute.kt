@@ -13,11 +13,13 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -30,6 +32,7 @@ import com.example.alexstarter.designsystem.MovieItem
 import com.example.alexstarter.designsystem.SeriesItem
 import com.example.alexstarter.designsystem.Spacer
 import com.example.alexstarter.designsystem.appbar.TopBar
+import com.example.alexstarter.designsystem.card.CardSeriesItem
 import com.example.alexstarter.designsystem.message.ErrorMessage
 import com.example.alexstarter.designsystem.text.Title
 import com.example.alexstarter.domain.movie.model.Movie
@@ -49,10 +52,12 @@ fun HomeRoute(
     val moviesPopularState by viewModel.moviesPopular.collectAsStateWithLifecycle()
     val moviesUpcomingState by viewModel.moviesUpcoming.collectAsStateWithLifecycle()
     val seriesPopularState by viewModel.seriesPopularState.collectAsStateWithLifecycle()
+    val seriesTopRatedState by viewModel.seriesTopRatedState.collectAsStateWithLifecycle()
     HomeScreen(
         moviesPopularState = moviesPopularState,
         moviesUpcomingState = moviesUpcomingState,
         seriesPopularState = seriesPopularState,
+        seriesTopRatedState = seriesTopRatedState,
         onMovieClick = { movieId ->
             navController.navigate("movie/$movieId")
         },
@@ -71,6 +76,7 @@ fun HomeScreen(
     moviesPopularState: Resource<List<Movie>>,
     moviesUpcomingState: Resource<List<Movie>>,
     seriesPopularState: Resource<List<Series>>,
+    seriesTopRatedState: Resource<List<Series>>,
     onMovieClick: (Int) -> Unit,
     onSeriesClick: (Int) -> Unit,
     onMenuClick: () -> Unit
@@ -79,6 +85,7 @@ fun HomeScreen(
         topBar = {
             TopBar(
                 onNavigationClick = onMenuClick,
+                text = "AlexStarter"
             )
         }
     ) {
@@ -170,9 +177,39 @@ fun HomeScreen(
                                 horizontalArrangement = Arrangement.spacedBy(8.dp)
                             ) {
                                 items(seriesPopularState.data!!.size) { index ->
-                                    SeriesItem(
+                                    CardSeriesItem(
                                         onClick = { onSeriesClick(seriesPopularState.data[index].id) },
                                         series = seriesPopularState.data[index]
+                                    )
+                                }
+                            }
+
+                        }
+                    }
+
+                    Spacer.Vertical.Default()
+
+                    Title.Big(text = "Series Top Rated")
+
+                    Spacer.Vertical.Default()
+
+                    when (seriesTopRatedState) {
+                        is Resource.Error -> {
+                            ErrorMessage(text = "Oh no something went wrong !")
+                        }
+
+                        is Resource.Loading -> {
+                            CircularProgressIndicator()
+                        }
+
+                        is Resource.Success -> {
+                            LazyRow(
+                                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                            ) {
+                                items(seriesTopRatedState.data!!.size) { index ->
+                                    CardSeriesItem(
+                                        onClick = { onSeriesClick(seriesTopRatedState.data[index].id) },
+                                        series = seriesTopRatedState.data[index]
                                     )
                                 }
                             }
