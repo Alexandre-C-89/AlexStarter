@@ -41,7 +41,9 @@ fun TopBar(
 ) {
     Column{
         TopAppBar(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(80.dp),
             title = {
                 Box(
                     modifier = Modifier.fillMaxSize(),
