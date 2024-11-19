@@ -8,6 +8,7 @@ import com.example.alexstarter.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.launch
@@ -21,6 +22,9 @@ class MovieDetailViewModel
 
     private val _movieDetailsState = MutableStateFlow<MovieDetailState>(MovieDetailState.Loading)
     val movieDetailsState: StateFlow<MovieDetailState> = _movieDetailsState
+
+    private val _videoKey = MutableStateFlow<String?>(null)
+    val videoKey: StateFlow<String?> = _videoKey.asStateFlow()
 
     fun fetchMovieDetails(movieId: String) {
         viewModelScope.launch {
@@ -41,6 +45,14 @@ class MovieDetailViewModel
                     _movieDetailsState.value = MovieDetailState.Loading
                 }
             }.launchIn(viewModelScope)
+        }
+    }
+
+    fun fetchVideo(movieId: String) {
+        viewModelScope.launch {
+            movieRepository.getMovieVideos(movieId).collect { key ->
+                _videoKey.value = key
+            }
         }
     }
 

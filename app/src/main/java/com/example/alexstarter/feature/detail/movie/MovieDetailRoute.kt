@@ -20,6 +20,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -33,6 +34,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
@@ -45,6 +47,7 @@ import com.example.alexstarter.designsystem.message.ErrorMessage
 import com.example.alexstarter.designsystem.text.Text
 import com.example.alexstarter.designsystem.text.TextWithThumbnail
 import com.example.alexstarter.designsystem.text.TitleWithRow
+import com.example.alexstarter.designsystem.video.LiveTvScreen
 import com.example.alexstarter.ui.theme.DarkBlue
 
 @Composable
@@ -56,7 +59,9 @@ fun MovieDetailRoute(
     //onActorClick: (Int) -> Unit
 ) {
     val movieDetailsState by viewModel.movieDetailsState.collectAsStateWithLifecycle()
+    val videoKey by viewModel.videoKey.collectAsState()
     MovieDetailScreen(
+        videoKey = videoKey ?: "",
         viewModel = viewModel,
         movieDetailsState = movieDetailsState,
         onBackClick = onBackClick,
@@ -66,20 +71,20 @@ fun MovieDetailRoute(
 
     LaunchedEffect(movieId) {
         viewModel.fetchMovieDetails(movieId)
+        viewModel.fetchVideo(movieId)
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MovieDetailScreen(
+    videoKey: String,
     viewModel: MovieDetailViewModel,
     movieDetailsState: MovieDetailState,
     onBackClick: () -> Unit,
     onActorClick: (Int) -> Unit,
 ) {
-    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
     AppScaffold(
-        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             TopBar(
                 scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(),
@@ -117,7 +122,6 @@ fun MovieDetailScreen(
                             .fillMaxWidth(),
                         contentAlignment = Alignment.BottomStart
                     ) {
-                        Log.d("MOVIEDETAILSROUTE", "${movie.image}")
                         AsyncImage(
                             modifier = Modifier
                                 .height(350.dp)
@@ -179,6 +183,18 @@ fun MovieDetailScreen(
                             }
                         }
 
+                        Spacer.Vertical.Default()
+
+                        Text.Default(text = "Video :")
+                    }
+
+                    if(videoKey != null) {
+                        LiveTvScreen(
+                            videoKey,
+                            lifecycleOwner = LocalLifecycleOwner.current
+                        )
+                    } else {
+                        Text.Default(text = "Video not found !")
                     }
 
                 }
