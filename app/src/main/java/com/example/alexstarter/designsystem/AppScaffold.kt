@@ -29,6 +29,7 @@ fun AppScaffold(
                 .padding(innerPadding)
                 .consumeWindowInsets(innerPadding)
                 .fillMaxSize()
+                .background(color = DarkBlue)
         ) {
             content()
         }

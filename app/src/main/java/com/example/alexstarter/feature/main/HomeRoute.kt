@@ -82,14 +82,7 @@ fun HomeScreen(
     onMenuClick: () -> Unit
 ) {
 
-    AppScaffold(
-        topBar = {
-            TopBar(
-                onNavigationClick = onMenuClick,
-                text = "AlexStarter"
-            )
-        }
-    ) {
+    AppScaffold{
         Column(
             modifier = Modifier
                 .fillMaxSize()

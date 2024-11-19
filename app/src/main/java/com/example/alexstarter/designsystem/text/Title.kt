@@ -21,7 +21,7 @@ object Title {
             fontWeight = FontWeight.Bold,
             fontFamily = openSansFontFamily,
             textAlign = TextAlign.Start,
-            color = Color.Black
+            color = White
         )
     )
 
