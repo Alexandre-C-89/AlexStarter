@@ -19,6 +19,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -80,10 +81,12 @@ fun HomeScreen(
     onSeriesClick: (Int) -> Unit,
     onMenuClick: () -> Unit
 ) {
+    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
     AppScaffold(
+        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             TopBar(
-                scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(),
+                scrollBehavior = scrollBehavior,
                 onNavigationClick = onMenuClick,
                 text = "AlexStarter"
             )
