@@ -8,6 +8,11 @@ import kotlinx.coroutines.flow.Flow
 
 interface MovieRepository {
 
+    suspend fun getMoviesNowPlaying(
+        forceFetchFromRemote: Boolean,
+        page: Int
+    ): Flow<Resource<List<Movie>>>
+
     suspend fun getMoviesPopular(
         forceFetchFromRemote: Boolean,
         page: Int

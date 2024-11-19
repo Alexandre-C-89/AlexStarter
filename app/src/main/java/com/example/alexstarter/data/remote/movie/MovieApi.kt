@@ -10,6 +10,11 @@ import retrofit2.http.Query
 
 interface MovieApi {
 
+    @GET("movie/now_playing")
+    suspend fun getMoviesNowPlaying(
+        @Query("page") page: Int
+    ): GenericListDto<MovieDto>
+
     @GET("movie/popular")
     suspend fun getMoviesPopular(
         @Query("page") page: Int

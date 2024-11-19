@@ -22,6 +22,59 @@ class MovieRepositoryImpl @Inject constructor(
     private val appDatabase: AppDatabase
 ) : MovieRepository {
 
+    override suspend fun getMoviesNowPlaying(
+        forceFetchFromRemote: Boolean,
+        page: Int
+    ): Flow<Resource<List<Movie>>> {
+        return flow {
+
+            emit(Resource.Loading())
+
+            val localMovieNowPlaying = appDatabase.movieDao.getMoviesNowPlaying()
+
+            val shouldLoadLocalMovie = localMovieNowPlaying.isNotEmpty() && !forceFetchFromRemote
+
+            if (shouldLoadLocalMovie) {
+                emit(Resource.Success(
+                    data = localMovieNowPlaying.map { movieEntity ->
+                        movieEntity.toDomain()
+                    }
+                ))
+
+                return@flow
+            }
+
+            val moviesPopularFromApi = try {
+                movieApi.getMoviesNowPlaying(page)
+            } catch (e: IOException) {
+                e.printStackTrace()
+                emit(Resource.Error(message = "Error loading movies now playing"))
+                return@flow
+            } catch (e: HttpException) {
+                e.printStackTrace()
+                emit(Resource.Error(message = "Error loading movies now playing"))
+                return@flow
+            } catch (e: Exception) {
+                e.printStackTrace()
+                emit(Resource.Error(message = "Error loading movies now playing"))
+                return@flow
+            }
+
+            val movieEntities = moviesPopularFromApi.results.let {
+                it.map { movieDto ->
+                    movieDto.toEntity()
+                }
+            }
+
+            appDatabase.movieDao.upsertMovieList(movieEntities)
+
+            emit(Resource.Success(
+                movieEntities.map { it.toDomain() }
+            ))
+
+        }
+    }
+
     override suspend fun getMoviesPopular(
         forceFetchFromRemote: Boolean,
         page: Int
