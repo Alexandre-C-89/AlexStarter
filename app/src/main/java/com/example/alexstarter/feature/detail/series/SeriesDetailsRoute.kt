@@ -12,6 +12,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -64,6 +65,7 @@ fun SeriesDetailScreen(
     AppScaffold(
         topBar = {
             TopBar(
+                scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(),
                 onBackClick = onBackClick,
                 text = "Series"
             )

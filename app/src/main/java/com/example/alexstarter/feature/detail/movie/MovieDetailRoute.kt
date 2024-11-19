@@ -17,6 +17,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -29,9 +30,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
@@ -41,14 +40,11 @@ import com.example.alexstarter.designsystem.AppScaffold
 import com.example.alexstarter.designsystem.Spacer
 import com.example.alexstarter.designsystem.appbar.TopBar
 import com.example.alexstarter.designsystem.image.ImageCardItem
-import com.example.alexstarter.designsystem.indicator.CircularIndicator
 import com.example.alexstarter.designsystem.message.ErrorMessage
 import com.example.alexstarter.designsystem.text.Text
 import com.example.alexstarter.designsystem.text.TextWithThumbnail
-import com.example.alexstarter.designsystem.text.Title
 import com.example.alexstarter.designsystem.text.TitleWithRow
 import com.example.alexstarter.ui.theme.DarkBlue
-import com.example.alexstarter.ui.theme.openSansFontFamily
 
 @Composable
 fun MovieDetailRoute(
@@ -83,6 +79,7 @@ fun MovieDetailScreen(
     AppScaffold(
         topBar = {
             TopBar(
+                scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(),
                 onBackClick = onBackClick,
                 text = "Movie"
             )
