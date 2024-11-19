@@ -81,6 +81,7 @@ fun HomeScreen(
     onSeriesClick: (Int) -> Unit,
     onMenuClick: () -> Unit
 ) {
+
     AppScaffold(
         topBar = {
             TopBar(
