@@ -81,12 +81,9 @@ fun HomeScreen(
     onSeriesClick: (Int) -> Unit,
     onMenuClick: () -> Unit
 ) {
-    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
     AppScaffold(
-        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             TopBar(
-                scrollBehavior = scrollBehavior,
                 onNavigationClick = onMenuClick,
                 text = "AlexStarter"
             )
