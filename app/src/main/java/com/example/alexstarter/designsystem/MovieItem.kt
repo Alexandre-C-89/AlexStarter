@@ -52,10 +52,10 @@ fun MovieItem(
                 .padding(8.dp),
             text = movie.title,
             color = White,
-            fontSize = 10.sp,
+            fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
             maxLines = 1,
-            overflow = TextOverflow.Clip
+            overflow = TextOverflow.Ellipsis
         )
     }
 }

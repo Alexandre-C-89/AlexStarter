@@ -1,7 +1,6 @@
 package com.example.alexstarter.feature.main
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -12,34 +11,22 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.example.alexstarter.designsystem.AppScaffold
 import com.example.alexstarter.designsystem.MovieItem
-import com.example.alexstarter.designsystem.SeriesItem
 import com.example.alexstarter.designsystem.Spacer
-import com.example.alexstarter.designsystem.appbar.TopBar
 import com.example.alexstarter.designsystem.card.CardSeriesItem
 import com.example.alexstarter.designsystem.message.ErrorMessage
 import com.example.alexstarter.designsystem.text.Title
 import com.example.alexstarter.domain.movie.model.Movie
 import com.example.alexstarter.domain.series.model.Series
-import com.example.alexstarter.ui.theme.DarkBlue
-import com.example.alexstarter.ui.theme.White
-import com.example.alexstarter.ui.theme.openSansFontFamily
 import com.example.alexstarter.util.Resource
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -95,7 +82,7 @@ fun HomeScreen(
         ) {
             Title.Big(text = "Now playing")
 
-            Spacer.Vertical.Small()
+            Spacer.Vertical.Default()
 
             when(moviesNowPlayingState){
 
@@ -127,9 +114,11 @@ fun HomeScreen(
 
             }
 
+            Spacer.Vertical.Default()
+
             Title.Big(text = "Popular")
 
-            Spacer.Vertical.Small()
+            Spacer.Vertical.Default()
 
             when (moviesPopularState) {
                 is Resource.Error -> {
@@ -164,7 +153,7 @@ fun HomeScreen(
 
             Title.Big(text = "Upcoming")
 
-            Spacer.Vertical.Small()
+            Spacer.Vertical.Default()
 
             when (moviesUpcomingState) {
                 is Resource.Error -> {
