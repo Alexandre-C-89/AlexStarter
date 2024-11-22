@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
@@ -20,13 +19,11 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.alexstarter.designsystem.icon.BackIconButton
 import com.example.alexstarter.designsystem.icon.MenuIconButton
 import com.example.alexstarter.designsystem.icon.SearchIconButton
-import com.example.alexstarter.ui.theme.AlexStarterTheme
 import com.example.alexstarter.ui.theme.DarkBlue
 import com.example.alexstarter.ui.theme.White
 
@@ -39,7 +36,7 @@ fun TopBar(
     onBackClick: (() -> Unit)? = null,
     text: String? = null
 ) {
-    Column{
+    Column {
         TopAppBar(
             modifier = Modifier
                 .fillMaxWidth()
@@ -97,14 +94,12 @@ fun TopBar(
 @Preview
 @Composable
 fun TopBarPreview() {
-    AlexStarterTheme {
-        TopBar(
-            scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(
-                rememberTopAppBarState()
-            ),
-            onNavigationClick = { },
-            onSearchClick = { },
-            onBackClick = { },
-        )
-    }
+    TopBar(
+        scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(
+            rememberTopAppBarState()
+        ),
+        onNavigationClick = { },
+        onSearchClick = { },
+        onBackClick = { },
+    )
 }

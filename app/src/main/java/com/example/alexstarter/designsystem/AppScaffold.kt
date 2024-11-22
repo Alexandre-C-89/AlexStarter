@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.example.alexstarter.ui.AppTheme
 import com.example.alexstarter.ui.theme.DarkBlue
 
 @Composable
@@ -21,15 +22,14 @@ fun AppScaffold(
         topBar = topBar,
         floatingActionButton = floatingActionButton,
         modifier = modifier,
-        //containerColor = AppTheme.colorPalette.surfacePrimary,
-        //contentColor = AppTheme.colorPalette.textPrimary
+        containerColor = AppTheme.colorPalette.surfacePrimary,
+        contentColor = AppTheme.colorPalette.textPrimary
     ) { innerPadding ->
         Box(
             modifier = Modifier
                 .padding(innerPadding)
                 .consumeWindowInsets(innerPadding)
                 .fillMaxSize()
-                .background(color = DarkBlue)
         ) {
             content()
         }
