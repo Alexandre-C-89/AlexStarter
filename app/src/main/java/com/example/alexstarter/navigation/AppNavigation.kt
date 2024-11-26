@@ -26,10 +26,13 @@ fun AppNavigation(
     ) {
         composable(Screen.Home.route) {
             HomeRoute(
-                navController
-                /*onNavigateClick = { route ->
-                    navController.navigate(route)
-                }*/
+                navController,
+                onMovieClick = { movieId ->
+                    navController.navigate("${Screen.MovieDetails.route}/$movieId")
+                },
+                onSeriesClick = { seriesId ->
+                    navController.navigate("${Screen.SeriesDetails.route}/$seriesId")
+                }
             )
         }
         composable(Screen.Search.route) {

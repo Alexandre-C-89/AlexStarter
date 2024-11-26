@@ -34,7 +34,8 @@ import com.example.alexstarter.util.Resource
 fun HomeRoute(
     navController: NavController,
     viewModel: HomeViewModel = hiltViewModel(),
-    //onNavigateClick: (String) -> Unit
+    onMovieClick: (Int) -> Unit,
+    onSeriesClick: (Int) -> Unit
 ) {
     val moviesNowPlayingState by viewModel.moviesNowPlaying.collectAsStateWithLifecycle()
     val moviesPopularState by viewModel.moviesPopular.collectAsStateWithLifecycle()
@@ -47,18 +48,12 @@ fun HomeRoute(
         moviesUpcomingState = moviesUpcomingState,
         seriesPopularState = seriesPopularState,
         seriesTopRatedState = seriesTopRatedState,
-        onMovieClick = { movieId ->
-            navController.navigate("movie/$movieId")
-        },
-        onSeriesClick = { seriesId ->
-            navController.navigate("tv/$seriesId")
-        },
+        onMovieClick = onMovieClick,
+        onSeriesClick = onSeriesClick,
         onMenuClick = {},
-        //onNavigateClick = onNavigateClick
     )
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun HomeScreen(
