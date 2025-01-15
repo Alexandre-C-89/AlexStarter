@@ -45,9 +45,9 @@ import com.example.alexstarter.util.Resource
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun HomeRoute(
-    navController: NavController,
     viewModel: HomeViewModel = hiltViewModel(),
-    //onNavigateClick: (String) -> Unit
+    onMovieClick: (Int) -> Unit,
+    onSeriesClick: (Int) -> Unit
 ) {
     val moviesPopularState by viewModel.moviesPopular.collectAsStateWithLifecycle()
     val moviesUpcomingState by viewModel.moviesUpcoming.collectAsStateWithLifecycle()
@@ -58,14 +58,9 @@ fun HomeRoute(
         moviesUpcomingState = moviesUpcomingState,
         seriesPopularState = seriesPopularState,
         seriesTopRatedState = seriesTopRatedState,
-        onMovieClick = { movieId ->
-            navController.navigate("movie/$movieId")
-        },
-        onSeriesClick = { seriesId ->
-            navController.navigate("tv/$seriesId")
-        },
+        onMovieClick = onMovieClick ,
+        onSeriesClick = onSeriesClick,
         onMenuClick = {},
-        //onNavigateClick = onNavigateClick
     )
 }
 

@@ -1,5 +1,6 @@
 package com.example.alexstarter.navigation
 
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -25,11 +26,13 @@ fun AppNavigation(
         startDestination = Screen.Home.route
     ) {
         composable(Screen.Home.route) {
+            Log.d("NAVHOST", "App navigation")
             HomeRoute(
-                navController
-                /*onNavigateClick = { route ->
-                    navController.navigate(route)
-                }*/
+                onMovieClick = { movieId ->
+                    navController.navigate("movie/$movieId")
+                },
+                onSeriesClick = { seriesId ->
+                    navController.navigate("tv/$seriesId") }
             )
         }
         composable(Screen.Search.route) {
@@ -41,7 +44,7 @@ fun AppNavigation(
             )
         }
         composable(
-            route = "${Screen.MovieDetails.route}/{movie_id}",
+            route = Screen.MovieDetails.route + "/{movie_id}",
             arguments = listOf(navArgument("movie_id") { type = NavType.StringType })
         ) { backStackEntry ->
             val movieId = backStackEntry.arguments?.getString("movie_id")
@@ -54,7 +57,7 @@ fun AppNavigation(
             }
         }
         composable(
-            route = "${Screen.Actor.route}/{actor_id}",
+            route = Screen.Actor.route + "/{actor_id}",
             arguments = listOf(navArgument("actor_id") { type = NavType.StringType })
         ) { backStackEntry ->
             val actorId = backStackEntry.arguments?.getString("actor_id")
@@ -66,7 +69,7 @@ fun AppNavigation(
             }
         }
         composable(
-            route = "${Screen.SeriesDetails.route}/{series_id}",
+            route = Screen.SeriesDetails.route + "/{series_id}",
             arguments = listOf(navArgument("series_id") { type = NavType.StringType })
         ) { backStackEntry ->
             val seriesId = backStackEntry.arguments?.getString("series_id")
