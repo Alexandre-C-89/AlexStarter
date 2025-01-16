@@ -20,6 +20,12 @@ interface MovieApi {
         @Query("page") page: Int
     ): GenericListDto<MovieDto>
 
+    @GET("trending/movie/{time_window}")
+    suspend fun getTendencyMoviesPopular(
+        @Path("time_window") timeWindow: String,
+        @Query("page") page: Int
+    ): GenericListDto<MovieDto>
+
     @GET("movie/{movieId}")
     suspend fun getMovieDetails(
         @Path("movieId") movieId: String

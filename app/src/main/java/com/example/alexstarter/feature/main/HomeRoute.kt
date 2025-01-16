@@ -51,11 +51,13 @@ fun HomeRoute(
 ) {
     val moviesPopularState by viewModel.moviesPopular.collectAsStateWithLifecycle()
     val moviesUpcomingState by viewModel.moviesUpcoming.collectAsStateWithLifecycle()
+    val moviesTendency by viewModel.moviesTendency.collectAsStateWithLifecycle()
     val seriesPopularState by viewModel.seriesPopularState.collectAsStateWithLifecycle()
     val seriesTopRatedState by viewModel.seriesTopRatedState.collectAsStateWithLifecycle()
     HomeScreen(
         moviesPopularState = moviesPopularState,
         moviesUpcomingState = moviesUpcomingState,
+        moviesTendency = moviesTendency,
         seriesPopularState = seriesPopularState,
         seriesTopRatedState = seriesTopRatedState,
         onMovieClick = onMovieClick ,
@@ -70,6 +72,7 @@ fun HomeRoute(
 fun HomeScreen(
     moviesPopularState: Resource<List<Movie>>,
     moviesUpcomingState: Resource<List<Movie>>,
+    moviesTendency: Resource<List<Movie>>,
     seriesPopularState: Resource<List<Series>>,
     seriesTopRatedState: Resource<List<Series>>,
     onMovieClick: (Int) -> Unit,
@@ -122,100 +125,129 @@ fun HomeScreen(
                             )
                         }
                     }
+                }
+            }
 
-                    Spacer.Vertical.Medium()
+            Spacer.Vertical.Medium()
 
-                    Title.Big(text = "Upcoming")
+            Title.Big(text = "Upcoming")
 
-                    Spacer.Vertical.Small()
+            Spacer.Vertical.Small()
 
-                    when (moviesUpcomingState) {
-                        is Resource.Error -> {
-                            ErrorMessage(text = "Oh no something went wrong !")
-                        }
+            when (moviesUpcomingState) {
+                is Resource.Error -> {
+                    ErrorMessage(text = "Oh no something went wrong !")
+                }
 
-                        is Resource.Loading -> {
-                            CircularProgressIndicator()
-                        }
+                is Resource.Loading -> {
+                    CircularProgressIndicator()
+                }
 
-                        is Resource.Success -> {
-                            LazyRow(
-                                horizontalArrangement = Arrangement.spacedBy(8.dp)
-                            ) {
-                                items(moviesUpcomingState.data!!.size) { index ->
-                                    MovieItem(
-                                        onClick = { onMovieClick(moviesUpcomingState.data[index].id) },
-                                        movie = moviesUpcomingState.data[index]
-                                    )
-                                }
-                            }
-
-                        }
-                    }
-
-                    Spacer.Vertical.Default()
-
-                    Title.Big(text = "Series popular")
-
-                    Spacer.Vertical.Default()
-
-                    when (seriesPopularState) {
-                        is Resource.Error -> {
-                            ErrorMessage(text = "Oh no something went wrong !")
-                        }
-
-                        is Resource.Loading -> {
-                            CircularProgressIndicator()
-                        }
-
-                        is Resource.Success -> {
-                            LazyRow(
-                                horizontalArrangement = Arrangement.spacedBy(8.dp)
-                            ) {
-                                items(seriesPopularState.data!!.size) { index ->
-                                    CardSeriesItem(
-                                        onClick = { onSeriesClick(seriesPopularState.data[index].id) },
-                                        series = seriesPopularState.data[index]
-                                    )
-                                }
-                            }
-
-                        }
-                    }
-
-                    Spacer.Vertical.Default()
-
-                    Title.Big(text = "Series Top Rated")
-
-                    Spacer.Vertical.Default()
-
-                    when (seriesTopRatedState) {
-                        is Resource.Error -> {
-                            ErrorMessage(text = "Oh no something went wrong !")
-                        }
-
-                        is Resource.Loading -> {
-                            CircularProgressIndicator()
-                        }
-
-                        is Resource.Success -> {
-                            LazyRow(
-                                horizontalArrangement = Arrangement.spacedBy(8.dp)
-                            ) {
-                                items(seriesTopRatedState.data!!.size) { index ->
-                                    CardSeriesItem(
-                                        onClick = { onSeriesClick(seriesTopRatedState.data[index].id) },
-                                        series = seriesTopRatedState.data[index]
-                                    )
-                                }
-                            }
-
+                is Resource.Success -> {
+                    LazyRow(
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        items(moviesUpcomingState.data!!.size) { index ->
+                            MovieItem(
+                                onClick = { onMovieClick(moviesUpcomingState.data[index].id) },
+                                movie = moviesUpcomingState.data[index]
+                            )
                         }
                     }
 
                 }
-
             }
+
+            Spacer.Vertical.Default()
+
+            Title.Big(text = "Trending")
+
+            Spacer.Vertical.Small()
+
+            when (moviesTendency) {
+                is Resource.Error -> {
+                    ErrorMessage(text = "Oh no something went wrong !")
+                }
+
+                is Resource.Loading -> {
+                    CircularProgressIndicator()
+                }
+
+                is Resource.Success -> {
+                    LazyRow(
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        items(moviesTendency.data!!.size) { index ->
+                            MovieItem(
+                                onClick = { onMovieClick(moviesTendency.data[index].id) },
+                                movie = moviesTendency.data[index]
+                            )
+                        }
+                    }
+
+                }
+            }
+
+            Spacer.Vertical.Default()
+
+            Title.Big(text = "Series popular")
+
+            Spacer.Vertical.Default()
+
+            when (seriesPopularState) {
+                is Resource.Error -> {
+                    ErrorMessage(text = "Oh no something went wrong !")
+                }
+
+                is Resource.Loading -> {
+                    CircularProgressIndicator()
+                }
+
+                is Resource.Success -> {
+                    LazyRow(
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        items(seriesPopularState.data!!.size) { index ->
+                            CardSeriesItem(
+                                onClick = { onSeriesClick(seriesPopularState.data[index].id) },
+                                series = seriesPopularState.data[index]
+                            )
+                        }
+                    }
+
+                }
+            }
+
+            Spacer.Vertical.Default()
+
+            Title.Big(text = "Series Top Rated")
+
+            Spacer.Vertical.Default()
+
+            when (seriesTopRatedState) {
+                is Resource.Error -> {
+                    ErrorMessage(text = "Oh no something went wrong !")
+                }
+
+                is Resource.Loading -> {
+                    CircularProgressIndicator()
+                }
+
+                is Resource.Success -> {
+                    LazyRow(
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        items(seriesTopRatedState.data!!.size) { index ->
+                            CardSeriesItem(
+                                onClick = { onSeriesClick(seriesTopRatedState.data[index].id) },
+                                series = seriesTopRatedState.data[index]
+                            )
+                        }
+                    }
+
+                }
+            }
+
         }
 
     }

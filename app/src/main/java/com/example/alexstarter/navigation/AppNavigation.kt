@@ -26,7 +26,6 @@ fun AppNavigation(
         startDestination = Screen.Home.route
     ) {
         composable(Screen.Home.route) {
-            Log.d("NAVHOST", "App navigation")
             HomeRoute(
                 onMovieClick = { movieId ->
                     navController.navigate("movie/$movieId")

@@ -1,5 +1,6 @@
 package com.example.alexstarter.feature.main
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.alexstarter.domain.movie.model.Movie
@@ -27,6 +28,9 @@ class HomeViewModel @Inject constructor(
     private val _moviesUpcoming = MutableStateFlow<Resource<List<Movie>>>(Resource.Loading())
     val moviesUpcoming: StateFlow<Resource<List<Movie>>> = _moviesUpcoming
 
+    private val _moviesTendency = MutableStateFlow<Resource<List<Movie>>>(Resource.Loading())
+    val moviesTendency: StateFlow<Resource<List<Movie>>> = _moviesTendency
+
     private val _seriesPopularState = MutableStateFlow<Resource<List<Series>>>(Resource.Loading())
     val seriesPopularState: StateFlow<Resource<List<Series>>> = _seriesPopularState
 
@@ -36,6 +40,7 @@ class HomeViewModel @Inject constructor(
     init {
         fetchMoviesPopular()
         fetchMoviesUpcoming()
+        fetchTendencyMovies()
         fetchSeriesPopular()
         fetchSeriesTopRated()
     }
@@ -56,6 +61,16 @@ class HomeViewModel @Inject constructor(
                 .flowOn(Dispatchers.IO)
                 .collect { result ->
                     _moviesUpcoming.value = result
+                }
+        }
+    }
+
+    private fun fetchTendencyMovies() {
+        viewModelScope.launch {
+            movieRepository.getTendencyMovies(forceFetchFromRemote = false, page = 1)
+                .flowOn(Dispatchers.IO)
+                .collect { result ->
+                    _moviesTendency.value = result
                 }
         }
     }

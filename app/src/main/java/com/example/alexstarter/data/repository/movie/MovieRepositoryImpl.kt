@@ -2,10 +2,10 @@ package com.example.alexstarter.data.repository.movie
 
 import android.util.Log
 import com.example.alexstarter.data.locale.AppDatabase
+import com.example.alexstarter.data.remote.movie.MovieApi
 import com.example.alexstarter.data.repository.movie.mapper.toCastMembers
 import com.example.alexstarter.data.repository.movie.mapper.toDomain
 import com.example.alexstarter.data.repository.movie.mapper.toEntity
-import com.example.alexstarter.data.remote.movie.MovieApi
 import com.example.alexstarter.domain.movie.model.CastMember
 import com.example.alexstarter.domain.movie.model.Movie
 import com.example.alexstarter.domain.movie.repository.MovieRepository
@@ -129,6 +129,60 @@ class MovieRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun getTendencyMovies(
+        forceFetchFromRemote: Boolean,
+        page: Int
+    ): Flow<Resource<List<Movie>>> {
+        return flow {
+
+            emit(Resource.Loading())
+
+            val localTendencyMoviePopular = appDatabase.movieDao.getTendencyMovies()
+
+            val shouldLoadLocalMovie = localTendencyMoviePopular.isNotEmpty() && !forceFetchFromRemote
+
+            if (shouldLoadLocalMovie) {
+                emit(Resource.Success(
+                    data = localTendencyMoviePopular.map { movieEntity ->
+                        movieEntity.toDomain()
+                    }
+                ))
+
+                return@flow
+            }
+
+            val tendencyMoviesPopularFromApi = try {
+                Log.d("MOVIEREPOSITORYIMPL", "${movieApi.getTendencyMoviesPopular("day",page)}")
+                movieApi.getTendencyMoviesPopular("day",page)
+            } catch (e: IOException) {
+                e.printStackTrace()
+                emit(Resource.Error(message = "Error loading movies popular"))
+                return@flow
+            } catch (e: HttpException) {
+                e.printStackTrace()
+                emit(Resource.Error(message = "Error loading movies popular"))
+                return@flow
+            } catch (e: Exception) {
+                e.printStackTrace()
+                emit(Resource.Error(message = "Error loading movies popular"))
+                return@flow
+            }
+
+            val movieEntities = tendencyMoviesPopularFromApi.results.let {
+                it.map { movieDto ->
+                    movieDto.toEntity()
+                }
+            }
+
+            appDatabase.movieDao.upsertTendencyMovieList(movieEntities)
+
+            emit(Resource.Success(
+                movieEntities.map { it.toDomain() }
+            ))
+
+        }
+    }
+
     override suspend fun getMovieDetails(movieId: String): Flow<Resource<Movie>> = flow {
         emit(Resource.Loading())
         try {
@@ -147,7 +201,6 @@ class MovieRepositoryImpl @Inject constructor(
 
             // Mappage des URLs des images des acteurs
             val castMembers = response.toCastMembers()
-            Log.d("GETMOVIECREDITS", "$response + $castMembers")
 
             emit(Resource.Success(castMembers))
         } catch (e: Exception) {

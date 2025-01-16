@@ -18,6 +18,11 @@ interface MovieRepository {
         page: Int
     ): Flow<Resource<List<Movie>>>
 
+    suspend fun getTendencyMovies(
+        forceFetchFromRemote: Boolean,
+        page: Int
+    ): Flow<Resource<List<Movie>>>
+
     suspend fun getMovieDetails(movieId: String): Flow<Resource<Movie>>
 
     suspend fun getMovieCredits(movieId: String): Flow<Resource<List<CastMember>>>

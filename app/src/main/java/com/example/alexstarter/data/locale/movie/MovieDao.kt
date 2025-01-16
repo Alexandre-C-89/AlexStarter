@@ -10,8 +10,14 @@ interface MovieDao {
     @Upsert
     suspend fun upsertMovieList(movieList: List<MovieEntity>)
 
+    @Upsert
+    suspend fun upsertTendencyMovieList(movieList: List<MovieEntity>)
+
     @Query("SELECT * FROM movie")
     suspend fun getMoviesPopular(): List<MovieEntity>
+
+    @Query("SELECT * FROM movie")
+    suspend fun getTendencyMovies(): List<MovieEntity>
 
     @Query("SELECT * FROM movie")
     suspend fun getMoviesUpcoming(): List<MovieEntity>
